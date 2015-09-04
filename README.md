@@ -5,7 +5,6 @@ Projekt powstał w celu przeprowadzenia warsztatów z tworzenia mikro-serwisów 
  - Istnieje frontend, który będzie korzystał z implementowanego serwisu (nie implementujemy frontendu).
  - Istnieje kolejka rozsyłająca wiadomości (nie implementujemy kolejki).
  - Dane z MongoDB, ze względu na wydajność, mogą być wyszukiwane tylko po ID dokumentu.
- - Dla błędów walidacji zwracamy jedynie status HTTP 422 (dla uproszczenia). 
  
 ## Ogólny opis funkcjonalności
 Zadaniem serwisu jest wystawienie możliwości odnowienia hasła przez użytkowników.
