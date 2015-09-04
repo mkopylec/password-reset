@@ -1,0 +1,7 @@
+spring.mail:
+  host: smtp.googlemail.com
+  port: 465
+  username: ddd.workshop.mial
+  password: workshop123
+
+spring.data.mongodb.uri: mongodb://localhost/password_reset
