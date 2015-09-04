@@ -6,7 +6,7 @@ public final class Endpoints {
      * Response:
      * <pre>
      * <code>{
-     *     "method": "PASSWORD_RESET_METHOD"
+     *     "method": "FULL"/"SIMPLE"/"NOT_AVAILABLE"
      * }
      * </code>
      * </pre>
