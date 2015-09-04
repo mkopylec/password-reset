@@ -1,1 +1,1 @@
-spring.data.mongodb.uri: mongodb://localhost:27018/password_reset
+spring.data.mongodb.port: 27018
