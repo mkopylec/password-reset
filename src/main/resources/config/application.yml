@@ -4,4 +4,6 @@ spring.mail:
   username: ddd.workshop.mial
   password: workshop123
 
-spring.data.mongodb.uri: mongodb://localhost/password_reset
+spring.data.mongodb:
+  host: 127.0.0.1
+  database: password_reset
