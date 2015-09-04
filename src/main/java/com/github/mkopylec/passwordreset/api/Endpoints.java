@@ -24,7 +24,7 @@ public final class Endpoints {
      * </code>
      * </pre>
      */
-    public static final String SEND_PASSWORD_RESET_EMAIL = "users/{loginOrEmail}/passwordReset";
+    public static final String SEND_PASSWORD_RESET_EMAIL = "users/{loginOrEmail}/passwordResetData";
 
     /**
      * Request:
