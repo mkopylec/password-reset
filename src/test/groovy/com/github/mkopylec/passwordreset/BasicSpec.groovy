@@ -27,8 +27,9 @@ class BasicSpec extends Specification {
     @Autowired
     private MongoTemplate mongoTemplate
 
-    protected WebTarget buildWebTarget(String path) {
-        return client.target("http://localhost:$context.embeddedServletContainer.port").path(path)
+    protected <R> R getEndpoint(Class<R> endpointClass) {
+        def target = client.target("http://localhost:$context.embeddedServletContainer.port")
+        WebResourceFactory
     }
 
     protected void saveInMongoDB(Object object) {
