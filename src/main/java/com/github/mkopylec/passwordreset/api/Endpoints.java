@@ -6,24 +6,34 @@ public final class Endpoints {
      * Response:
      * <pre>
      * <code>{
-     *     "id": user_id,
-     *     "passwordResetMethod": "RESET_METHOD"
+     *     "method": "PASSWORD_RESET_METHOD"
      * }
      * </code>
      * </pre>
      */
-    public static final String USER_RESET_METHOD = "users/{loginOrEmail}";
+    public static final String GET_PASSWORD_RESET_METHOD = "users/{loginOrEmail}/passwordResetMethod";
 
     /**
-     * Response:
+     * Request:
      * <pre>
      * <code>{
-     *     "id": user_id,
-     *     "passwordResetMethod": "RESET_METHOD"
+     *     "passwordResetMethod": "PASSWORD_RESET_METHOD",
+     *     "maidenName": "mothers maiden name",
+     *     "resetUrl": "http://reset.url/"
      * }
      * </code>
      * </pre>
      */
-    public static final String USER_RESET_METHOD = "users/{loginOrEmail}";
+    public static final String SEND_PASSWORD_RESET_EMAIL = "users/{loginOrEmail}/passwordReset";
 
+    /**
+     * Request:
+     * <pre>
+     * <code>{
+     *     "text": "password"
+     * }
+     * </code>
+     * </pre>
+     */
+    public static final String CHANGE_PASSWORD = "users/{loginOrEmail}/password";
 }
