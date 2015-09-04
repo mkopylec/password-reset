@@ -10,6 +10,10 @@ import javax.ws.rs.ApplicationPath;
 class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
-        packages("com.github.mkopylec.passwordreset");
+        registerClasses(
+                ThrowableMapper.class,
+                WebApplicationExceptionMapper.class,
+                ConstraintViolationExceptionMapper.class
+        );
     }
 }
