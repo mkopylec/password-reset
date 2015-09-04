@@ -23,7 +23,7 @@ W temacie e-maila jest zawarte imię i nazwisko użytkownika.
 4. Hasło dla użytkownika zostaje zmienione. **Proces się kończy**.
 
 ### KROK 2: Pozyskiwanie danych o użytkownikach
-1. Przychodzi wiadomość z kolejki z danymi użytkowników (nie implementujemy kolejki).
+1. Przychodzi wiadomość z kolejki z danymi użytkowników.
 2. Dane użytkowników są zapisywane do MongoDB.
 
 ### KROK 3: Wyświetlenie historii wysłanych e-maili:
