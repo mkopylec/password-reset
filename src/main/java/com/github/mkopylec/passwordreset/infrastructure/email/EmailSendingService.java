@@ -15,7 +15,9 @@ class EmailSendingService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(String recipient, String subject, String message) {
+    //TODO Doda? potrzebne metody do wysy?ania e-maili
+
+    private void sendEmail(String recipient, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(recipient);
         mailMessage.setSubject(subject);
