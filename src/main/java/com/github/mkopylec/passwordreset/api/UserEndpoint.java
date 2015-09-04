@@ -6,7 +6,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.xml.ws.Response;
+import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -21,7 +21,7 @@ public interface UserEndpoint {
 
     @PUT
     @Path("{loginOrEmail}/passwordResetData")
-    Response sendPasswordResetMail(@PathParam("loginOrEmail") String loginOrEmail, ResetData resetData);
+    Response sendPasswordResetEmail(@PathParam("loginOrEmail") String loginOrEmail, ResetData resetData);
 
     @PUT
     @Path("{loginOrEmail}/password")

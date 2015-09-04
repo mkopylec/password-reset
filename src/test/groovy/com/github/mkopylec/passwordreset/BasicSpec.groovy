@@ -1,5 +1,6 @@
 package com.github.mkopylec.passwordreset
 
+import com.github.mkopylec.passwordreset.api.UserEndpoint
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -11,9 +12,9 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 import javax.ws.rs.client.Client
-import javax.ws.rs.client.WebTarget
 
 import static javax.ws.rs.client.ClientBuilder.newClient
+import static org.glassfish.jersey.client.proxy.WebResourceFactory.newResource
 
 @WebIntegrationTest
 @ActiveProfiles("test")
@@ -27,13 +28,9 @@ class BasicSpec extends Specification {
     @Autowired
     private MongoTemplate mongoTemplate
 
-    protected <R> R getEndpoint(Class<R> endpointClass) {
+    protected UserEndpoint getEndpoint() {
         def target = client.target("http://localhost:$context.embeddedServletContainer.port")
-        WebResourceFactory
-    }
-
-    protected void saveInMongoDB(Object object) {
-        mongoTemplate.save(object)
+        return newResource(UserEndpoint, target)
     }
 
     void cleanup() {
