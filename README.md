@@ -16,8 +16,7 @@ Dodatkowo serwis ma udostępniać dla administratorów historię wysłanych do u
     b) Jeżeli użytkownik nie posiada nazwiska panieńskiego, ale ma **_imię_** i **_nazwisko_**, to przechodzi do pkt. 2.  
     c) Jeżeli użytkownik nie posiada nazwiska panieńskiego, imienia i nazwiska to nie może odnowić swojego hasła. **Proces się kończy**.
 2. Do użytkownika zostaje wysłany e-mail z linkiem do ustalenia nowego hasła.
-Link jest URLem z parametrem "token", który jest losowym ciągiem 32 znakowym.
-URL (bez tokena) przychodzi jako parametr z frontendu.
+Link przychodzi jako parametr z frontendu.
 W temacie e-maila jest zawarte imię i nazwisko użytkownika.
 3. Po kliknięciu na link użytkownik podaje nowe hasło i powtarza je w drugim polu tekstowym.
 4. Hasło dla użytkownika zostaje zmienione. **Proces się kończy**.
