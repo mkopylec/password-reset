@@ -11,7 +11,7 @@ class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         registerClasses(
-                //TODO Doda? endpointy RESTowe
+                //TODO Dodac endpointy RESTowe
                 ThrowableMapper.class,
                 WebApplicationExceptionMapper.class,
                 ConstraintViolationExceptionMapper.class
