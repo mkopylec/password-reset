@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface NotEmptyUsernameOrEmail {
 
-    String message() default "Empty username and e-mail address";
+    String message();
 
     Class<?>[] groups() default {};
 

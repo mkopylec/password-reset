@@ -63,8 +63,8 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 400
-        //TODO Sprawdzic czy dane uzytkownika sie nie zapisaly
-//        findInMongoDB(userData.id, entityClass) == null
+
+        findInMongoDB(userData.id, User) == null
 
         where:
         hashedPassword << [null, '', '  ']
