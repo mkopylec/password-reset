@@ -9,7 +9,6 @@ import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.NOT_AVAILABLE
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
-import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataFor
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName
 
 class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
@@ -20,7 +19,7 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
         def userData = completeUserData()
         endpoint.saveUser(userData)
 
-        def resetData = resetDataFor(userData, resetMethod)
+        def resetData = new ResetData(resetMethod: resetMethod, resetUrl: 'http://reset.url/')
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -41,7 +40,7 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
         def userData = userDataWithoutMaidenAndName()
         endpoint.saveUser(userData)
 
-        def resetData = resetDataFor(userData, resetMethod)
+        def resetData = new ResetData(resetMethod: resetMethod, resetUrl: 'http://reset.url/')
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -61,7 +60,7 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
         def userData = userDataWithoutMaidenAndName()
         endpoint.saveUser(userData)
 
-        def resetData = resetDataFor(userData, resetUrl)
+        def resetData = new ResetData(resetMethod: FULL, resetUrl: resetUrl)
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -77,7 +76,7 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
 
     def "Should not send password reset e-mail to user when user does not exist"() {
         given:
-        def resetData = new ResetData(resetMethod: FULL, maidenName: 'maiden', resetUrl: 'url')
+        def resetData = new ResetData(resetMethod: FULL, resetUrl: 'http://reset.url/')
 
         when:
         def response = endpoint.sendPasswordResetEmail(123, resetData)
