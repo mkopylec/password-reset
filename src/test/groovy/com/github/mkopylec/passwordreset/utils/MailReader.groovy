@@ -14,6 +14,8 @@ import javax.mail.Part
 import javax.mail.Session
 import javax.mail.Store
 
+import static com.github.mkopylec.passwordreset.utils.MailReader.MailPart.CONTENT
+import static com.github.mkopylec.passwordreset.utils.MailReader.MailPart.SUBJECT
 import static javax.mail.Flags.Flag.SEEN
 import static javax.mail.Folder.READ_WRITE
 import static javax.mail.Session.getInstance
@@ -26,11 +28,11 @@ class MailReader {
     private MailProperties mail
 
     String getMailSubject(String email) throws MessagingException, IOException {
-        return getMailPart(email, com.github.mkopylec.passwordreset.utils.MailReader.MailPart.SUBJECT)
+        return getMailPart(email, SUBJECT)
     }
 
     String getMailContent(String email) throws MessagingException, IOException {
-        return getMailPart(email, com.github.mkopylec.passwordreset.utils.MailReader.MailPart.CONTENT)
+        return getMailPart(email, CONTENT)
     }
 
     private String getMailPart(String email, MailPart mailPart) throws MessagingException, IOException {
