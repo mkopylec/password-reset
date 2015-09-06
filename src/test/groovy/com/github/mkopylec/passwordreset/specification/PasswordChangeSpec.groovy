@@ -1,7 +1,7 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
-import com.github.mkopylec.passwordreset.api.Password
+import com.github.mkopylec.passwordreset.api.dto.Password
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData

@@ -2,9 +2,9 @@ package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
 
-import static com.github.mkopylec.passwordreset.api.ResetMethod.FULL
-import static com.github.mkopylec.passwordreset.api.ResetMethod.NOT_AVAILABLE
-import static com.github.mkopylec.passwordreset.api.ResetMethod.SIMPLE
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.NOT_AVAILABLE
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaiden
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName

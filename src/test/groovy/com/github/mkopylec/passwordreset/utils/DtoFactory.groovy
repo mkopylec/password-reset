@@ -1,10 +1,10 @@
 package com.github.mkopylec.passwordreset.utils
 
-import com.github.mkopylec.passwordreset.api.ResetData
-import com.github.mkopylec.passwordreset.api.ResetMethod
-import com.github.mkopylec.passwordreset.api.UserData
+import com.github.mkopylec.passwordreset.api.dto.ResetData
+import com.github.mkopylec.passwordreset.api.dto.ResetMethod
+import com.github.mkopylec.passwordreset.api.dto.UserData
 
-import static com.github.mkopylec.passwordreset.api.ResetMethod.FULL
+import static ResetMethod.FULL
 
 class DtoFactory {
 
