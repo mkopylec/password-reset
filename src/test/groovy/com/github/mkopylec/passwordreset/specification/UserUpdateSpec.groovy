@@ -11,7 +11,6 @@ class UserUpdateSpec extends BasicSpec<UserEndpoint> {
     def "Should save user"() {
         given:
         def userData = completeUserData()
-        userData.username = null
 
         when:
         def response = endpoint.saveUser(userData)

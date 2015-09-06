@@ -33,6 +33,7 @@ public interface UserEndpoint {
     @Path("{id}/passwordResetMethod")
     ResetMethod getPasswordResetMethod(@PathParam("id") long id);
 
+    @PUT
     @Consumes(APPLICATION_JSON)
     @Path("{id}/passwordResetData")
     Response sendPasswordResetEmail(@PathParam("id") long id, @NotNull @Valid ResetData resetData);

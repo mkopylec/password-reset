@@ -20,10 +20,9 @@ import java.lang.reflect.ParameterizedType
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = PasswordResetService)
 class BasicSpec<E> extends Specification {
 
+    private ResteasyClient client
     @Shared
     private Class<E> endpointClass
-    @Shared
-    private ResteasyClient client = new ResteasyClientBuilder().build()
     @Autowired
     private EmbeddedWebApplicationContext context
     @Autowired
@@ -33,6 +32,10 @@ class BasicSpec<E> extends Specification {
 
     void setupSpec() {
         endpointClass = (Class<E>) ((ParameterizedType) this.class.genericSuperclass).actualTypeArguments[0]
+    }
+
+    void setup() {
+        client = new ResteasyClientBuilder().build()
     }
 
     protected E getEndpoint() {
@@ -52,6 +55,7 @@ class BasicSpec<E> extends Specification {
     }
 
     void cleanup() {
+        client.close()
         mongoTemplate.getDb().dropDatabase()
     }
 }
