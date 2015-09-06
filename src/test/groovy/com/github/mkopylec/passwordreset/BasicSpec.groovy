@@ -1,7 +1,6 @@
 package com.github.mkopylec.passwordreset
 
 import com.github.mkopylec.passwordreset.utils.MailReader
-import org.jboss.resteasy.client.jaxrs.ResteasyClient
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext
@@ -20,7 +19,6 @@ import java.lang.reflect.ParameterizedType
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = PasswordResetService)
 class BasicSpec<E> extends Specification {
 
-    private ResteasyClient client
     @Shared
     private Class<E> endpointClass
     @Autowired
@@ -34,12 +32,11 @@ class BasicSpec<E> extends Specification {
         endpointClass = (Class<E>) ((ParameterizedType) this.class.genericSuperclass).actualTypeArguments[0]
     }
 
-    void setup() {
-        client = new ResteasyClientBuilder().build()
-    }
-
     protected E getEndpoint() {
-        return client.target("http://localhost:$context.embeddedServletContainer.port").proxy(endpointClass)
+        return new ResteasyClientBuilder()
+                .build()
+                .target("http://localhost:$context.embeddedServletContainer.port")
+                .proxy(endpointClass)
     }
 
     protected <T> T findInMongoDB(Object id, Class<T> entityClass) {
@@ -55,7 +52,6 @@ class BasicSpec<E> extends Specification {
     }
 
     void cleanup() {
-        client.close()
         mongoTemplate.getDb().dropDatabase()
     }
 }
