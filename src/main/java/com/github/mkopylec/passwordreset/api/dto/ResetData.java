@@ -3,6 +3,7 @@ package com.github.mkopylec.passwordreset.api.dto;
 public class ResetData {
 
     private ResetMethod resetMethod;
+    private String maidenName;
     private String resetUrl;
 
     public ResetMethod getResetMethod() {
@@ -11,6 +12,14 @@ public class ResetData {
 
     public void setResetMethod(ResetMethod resetMethod) {
         this.resetMethod = resetMethod;
+    }
+
+    public String getMaidenName() {
+        return maidenName;
+    }
+
+    public void setMaidenName(String maidenName) {
+        this.maidenName = maidenName;
     }
 
     public String getResetUrl() {
