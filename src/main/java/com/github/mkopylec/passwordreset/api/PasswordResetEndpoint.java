@@ -35,7 +35,7 @@ public interface PasswordResetEndpoint {
 
     @PATCH
     @Path("{id}/passwordResetData")
-    Response sendPasswordResetEmail(@PathParam("id") long id, ResetData resetData);
+    Response sendPasswordResetEmail(@PathParam("id") long id, @NotNull @Valid ResetData resetData);
 
     @PATCH
     @Path("{id}/password")
