@@ -1,39 +1,45 @@
 package com.github.mkopylec.passwordreset.application;
 
-import com.github.mkopylec.passwordreset.api.UserEndpoint;
-import com.github.mkopylec.passwordreset.api.dto.Password;
-import com.github.mkopylec.passwordreset.api.dto.ResetData;
-import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
+import com.github.mkopylec.passwordreset.domain.user.User;
+import com.github.mkopylec.passwordreset.domain.user.UserFactory;
+import com.github.mkopylec.passwordreset.domain.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.Response;
-
 @Service
-public class UserService implements UserEndpoint {
+class UserService {
 
-    @Override
-    public Response saveUser(UserData userData) {
-        return null;
+    private final UserFactory userFactory;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserFactory userFactory, UserRepository userRepository) {
+        this.userFactory = userFactory;
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public long getUserId(String loginOrEmail) {
-        throw new UnsupportedOperationException();
+    public void saveUser(UserData userData) {
+        User user = userRepository.findById(userData.getId());
+        if (user == null) {
+            user = createNewUser(userData);
+        } else {
+            updateUser(user, userData);
+        }
+        userRepository.save(user);
     }
 
-    @Override
-    public ResetMethod getPasswordResetMethod(long id) {
-        throw new UnsupportedOperationException();
+    private User createNewUser(UserData userData) {
+        return userFactory.createUser(userData.getId(), userData.getUsername(), userData.getEmail())
+                .withMaidenName(userData.getMaidenName())
+                .withFullName(userData.getFirstName(), userData.getLastName())
+                .create();
     }
 
-    @Override
-    public Response sendPasswordResetEmail(long id, ResetData resetData) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Response changePassword(long id, Password password) {
-        throw new UnsupportedOperationException();
+    private void updateUser(User user, UserData userData) {
+        user.changeUsername(userData.getUsername());
+        user.changeEmail(userData.getEmail());
+        user.changeMaidenName(userData.getMaidenName());
+        user.rename(userData.getFirstName(), userData.getLastName());
     }
 }

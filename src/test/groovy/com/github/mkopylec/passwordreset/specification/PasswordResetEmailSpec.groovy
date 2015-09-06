@@ -1,7 +1,7 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
-import com.github.mkopylec.passwordreset.api.UserEndpoint
+import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.api.dto.ResetData
 import spock.lang.Unroll
 
@@ -12,7 +12,7 @@ import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserDat
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataFor
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName
 
-class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
+class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
     @Unroll
     def "Should send password reset e-mail to user when reset method is #resetMethod"() {
