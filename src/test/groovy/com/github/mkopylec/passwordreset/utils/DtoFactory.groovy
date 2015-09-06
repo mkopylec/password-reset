@@ -12,6 +12,7 @@ class DtoFactory {
         return new UserData(
                 id: 666,
                 username: 'some_user',
+                hashedPassword: 't0p_s3cr3t hash',
                 email: 'ddd.workshop.mial@gmail.com',
                 maidenName: 'mama',
                 firstName: 'James',
