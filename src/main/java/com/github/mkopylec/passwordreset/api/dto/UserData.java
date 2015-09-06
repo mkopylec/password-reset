@@ -7,6 +7,7 @@ public class UserData {
 
     private long id;
     private String username;
+    private String hashedPassword;
     private String email;
     private String maidenName;
     private String firstName;
@@ -26,6 +27,14 @@ public class UserData {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
     public String getEmail() {
