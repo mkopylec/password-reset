@@ -1,6 +1,7 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
+import com.github.mkopylec.passwordreset.api.dto.ResetData
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
@@ -21,16 +22,7 @@ class PasswordResetEmailSpec extends BasicSpec {
         def resetData = resetDataFor(userData, resetMethod)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.username, resetData)
-
-        then:
-        response.status == 200
-        getMailSubject(userData.email).contains(userData.firstName)
-        getMailSubject(userData.email).contains(userData.lastName)
-        getMailContent(userData.email).contains(resetData.resetUrl)
-
-        when:
-        response = getEndpoint().sendPasswordResetEmail(userData.email, resetData)
+        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 200
@@ -51,7 +43,7 @@ class PasswordResetEmailSpec extends BasicSpec {
         def resetData = resetDataFor(userData, resetMethod)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.username, resetData)
+        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 400
@@ -71,7 +63,7 @@ class PasswordResetEmailSpec extends BasicSpec {
         def resetData = resetDataFor(userData, resetUrl)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.username, resetData)
+        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 400
@@ -80,5 +72,16 @@ class PasswordResetEmailSpec extends BasicSpec {
 
         where:
         resetUrl << [null, '', '  ']
+    }
+
+    def "Should not send password reset e-mail to user when user does not exist"() {
+        given:
+        def resetData = new ResetData(resetMethod: FULL, maidenName: 'maiden', resetUrl: 'url')
+
+        when:
+        def response = getEndpoint().sendPasswordResetEmail(123, resetData)
+
+        then:
+        response.status == 404
     }
 }
