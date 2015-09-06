@@ -8,6 +8,9 @@ import com.github.mkopylec.passwordreset.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL;
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.NOT_AVAILABLE;
+import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE;
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.notFoundIfNull;
 
 @Service
@@ -40,9 +43,8 @@ class UserService {
 
     public ResetMethod getPasswordResetMethod(long id) {
         User user = userRepository.findById(id);
-        if (user == null) {
-            throw new NotFoundException("User with id: '" + id + "' does not exist");
-        }
+        notFoundIfNull(user, "User with id: '" + id + "' does not exist");
+        return resolveResetMethod(user);
     }
 
     private User createNewUser(UserData userData) {
@@ -59,5 +61,15 @@ class UserService {
         user.changeEmail(userData.getEmail());
         user.changeMaidenName(userData.getMaidenName());
         user.rename(userData.getFirstName(), userData.getLastName());
+    }
+
+    private ResetMethod resolveResetMethod(User user) {
+        if (user.isFullyNamedAndHasMaidenName()) {
+            return FULL;
+        }
+        if (user.isFullyNamed()) {
+            return SIMPLE;
+        }
+        return NOT_AVAILABLE;
     }
 }

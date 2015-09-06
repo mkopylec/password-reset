@@ -28,6 +28,14 @@ public class User {
         this.fullName = fullName;
     }
 
+    public boolean isFullyNamed() {
+        return fullName.isFullyNamed();
+    }
+
+    public boolean isFullyNamedAndHasMaidenName() {
+        return isFullyNamed() && isNotBlank(maidenName);
+    }
+
     public void changeUsername(String username) {
         credentials = new Credentials(username, credentials.getHashedPassword());
     }
