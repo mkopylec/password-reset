@@ -23,7 +23,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 public interface PasswordResetEndpoint {
 
     @PUT
-    Response saveUser(@NotNull @Valid UserData userData);
+    Response saveUser(@NotNull(message = "Empty user data") @Valid UserData userData);
 
     @GET
     @Path("{loginOrEmail}/id")
