@@ -35,7 +35,7 @@ public class PasswordResetService implements PasswordResetEndpoint {
 
     @Override
     public ResetMethod getPasswordResetMethod(long id) {
-        throw new UnsupportedOperationException();
+        return userService.getPasswordResetMethod(id);
     }
 
     @Override

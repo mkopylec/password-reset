@@ -1,5 +1,6 @@
 package com.github.mkopylec.passwordreset.application;
 
+import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
 import com.github.mkopylec.passwordreset.domain.user.User;
 import com.github.mkopylec.passwordreset.domain.user.UserFactory;
@@ -37,6 +38,13 @@ class UserService {
             throw new NotFoundException("User with login or e-mail: '" + loginOrEmail + "' does not exist");
         }
         return user.getId();
+    }
+
+    public ResetMethod getPasswordResetMethod(long id) {
+        User user = userRepository.findById(id);
+        if (user == null) {
+            throw new NotFoundException("User with id: '" + id + "' does not exist");
+        }
     }
 
     private User createNewUser(UserData userData) {
