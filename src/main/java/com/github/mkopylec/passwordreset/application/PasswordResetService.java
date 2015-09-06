@@ -16,10 +16,12 @@ import static javax.ws.rs.core.Response.ok;
 public class PasswordResetService implements PasswordResetEndpoint {
 
     private final UserService userService;
+    private final EmailService emailService;
 
     @Autowired
-    public PasswordResetService(UserService userService) {
+    public PasswordResetService(UserService userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -40,7 +42,8 @@ public class PasswordResetService implements PasswordResetEndpoint {
 
     @Override
     public Response sendPasswordResetEmail(long id, ResetData resetData) {
-        throw new UnsupportedOperationException();
+        emailService.sendPasswordResetEmail(id, resetData);
+        return ok().build();
     }
 
     @Override

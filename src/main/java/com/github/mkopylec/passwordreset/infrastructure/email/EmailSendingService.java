@@ -1,12 +1,16 @@
 package com.github.mkopylec.passwordreset.infrastructure.email;
 
+import com.github.mkopylec.passwordreset.application.EmailSender;
+import com.github.mkopylec.passwordreset.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import static java.lang.String.format;
+
 @Service
-class EmailSendingService {
+class EmailSendingService implements EmailSender {
 
     private final MailSender mailSender;
 
@@ -15,7 +19,12 @@ class EmailSendingService {
         this.mailSender = mailSender;
     }
 
-    //TODO Dodac potrzebne metody do wysylania e-maili
+    @Override
+    public void sendPasswordResetEmail(User user, String resetUrl) {
+        String subject = format("Witaj %s %s!", user.getFirstName(), user.getLastName());
+        String message = format("<html>Aby dokonczyc proces odnawiania hasla kliknij w ponizszy link.<br /><a href='%s'>%s</a></html>", resetUrl, resetUrl);
+        sendEmail(user.getEmail(), subject, message);
+    }
 
     private void sendEmail(String recipient, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
