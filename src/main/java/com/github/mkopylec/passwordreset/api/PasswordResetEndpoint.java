@@ -39,5 +39,5 @@ public interface PasswordResetEndpoint {
 
     @PATCH
     @Path("{id}/password")
-    Response changePassword(@PathParam("id") long id, @NotNull @Valid Password password);
+    Response changePassword(@PathParam("id") long id, Password password);
 }
