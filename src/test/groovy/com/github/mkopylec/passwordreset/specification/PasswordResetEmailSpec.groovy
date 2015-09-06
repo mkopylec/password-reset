@@ -56,7 +56,7 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
     }
 
     @Unroll
-    def "Should not send password reset e-mail to user when reset URL is #resetUrl"() {
+    def "Should not send password reset e-mail to user when reset URL is '#resetUrl'"() {
         given:
         def userData = userDataWithoutMaidenAndName()
         endpoint.saveUser(userData)
