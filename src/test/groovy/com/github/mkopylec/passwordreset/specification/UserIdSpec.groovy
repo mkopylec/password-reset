@@ -1,12 +1,13 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
+import com.github.mkopylec.passwordreset.api.UserEndpoint
 
 import javax.ws.rs.NotFoundException
 
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 
-class UserIdSpec extends BasicSpec {
+class UserIdSpec extends BasicSpec<UserEndpoint> {
 
     def "Should get user id by login or e-mail address"() {
         given:

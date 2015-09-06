@@ -1,11 +1,12 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
+import com.github.mkopylec.passwordreset.api.UserEndpoint
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 
-class UserUpdateSpec extends BasicSpec {
+class UserUpdateSpec extends BasicSpec<UserEndpoint> {
 
     def "Should save user"() {
         given:
