@@ -1,12 +1,14 @@
 package com.github.mkopylec.passwordreset.api.dto;
 
 import com.github.mkopylec.passwordreset.api.validation.NotEmptyUsernameOrEmail;
+import org.hibernate.validator.constraints.NotBlank;
 
-@NotEmptyUsernameOrEmail
+@NotEmptyUsernameOrEmail(message = "Empty username and e-mail address")
 public class UserData {
 
     private long id;
     private String username;
+    @NotBlank(message = "Empty hashed password")
     private String hashedPassword;
     private String email;
     private String maidenName;
