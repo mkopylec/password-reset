@@ -16,5 +16,5 @@ class ObjectMappingService {
                 .setFieldAccessLevel(PRIVATE);
     }
 
-    //TODO Doda? potrzebne metody mapuj?ce
+    //TODO Dodac potrzebne metody mapujace
 }
