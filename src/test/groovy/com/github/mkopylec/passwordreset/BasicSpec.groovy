@@ -1,8 +1,8 @@
 package com.github.mkopylec.passwordreset
 
-import com.github.mkopylec.passwordreset.api.UserEndpoint
 import com.github.mkopylec.passwordreset.utils.MailReader
-import org.glassfish.jersey.client.ClientProperties
+import org.jboss.resteasy.client.jaxrs.ResteasyClient
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -13,18 +13,17 @@ import org.springframework.test.context.ContextConfiguration
 import spock.lang.Shared
 import spock.lang.Specification
 
-import javax.ws.rs.client.Client
-
-import static javax.ws.rs.client.ClientBuilder.newClient
-import static org.glassfish.jersey.client.proxy.WebResourceFactory.newResource
+import java.lang.reflect.ParameterizedType
 
 @WebIntegrationTest
 @ActiveProfiles("test")
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = PasswordResetService)
-class BasicSpec extends Specification {
+class BasicSpec<E> extends Specification {
 
     @Shared
-    private Client client = newClient()
+    private Class<E> endpointClass
+    @Shared
+    private ResteasyClient client = new ResteasyClientBuilder().build()
     @Autowired
     private EmbeddedWebApplicationContext context
     @Autowired
@@ -33,12 +32,11 @@ class BasicSpec extends Specification {
     private MailReader mailReader
 
     void setupSpec() {
-        client.property(ClientProperties.SUPPRESS_HTTP_COMPLIANCE_VALIDATION, true)
+        endpointClass = (Class<E>) ((ParameterizedType) this.class.genericSuperclass).actualTypeArguments[0]
     }
 
-    protected UserEndpoint getEndpoint() {
-        def target = client.target("http://localhost:$context.embeddedServletContainer.port")
-        return newResource(UserEndpoint, target)
+    protected E getEndpoint() {
+        return client.target("http://localhost:$context.embeddedServletContainer.port").proxy(endpointClass)
     }
 
     protected <T> T findInMongoDB(Object id, Class<T> entityClass) {

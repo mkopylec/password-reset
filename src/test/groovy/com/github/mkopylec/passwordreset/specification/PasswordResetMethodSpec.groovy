@@ -1,6 +1,7 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
+import com.github.mkopylec.passwordreset.api.UserEndpoint
 
 import javax.ws.rs.NotFoundException
 
@@ -11,7 +12,7 @@ import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserDat
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaiden
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName
 
-class PasswordResetMethodSpec extends BasicSpec {
+class PasswordResetMethodSpec extends BasicSpec<UserEndpoint> {
 
     def "Should get full password reset method when user has maiden name, first and last name"() {
         given:
