@@ -1,4 +1,4 @@
-package com.github.mkopylec.passwordreset.api;
+package com.github.mkopylec.passwordreset.api.dto;
 
 public class UserData {
 
