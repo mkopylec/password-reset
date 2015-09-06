@@ -3,12 +3,17 @@ package com.github.mkopylec.passwordreset.specification
 import com.github.mkopylec.passwordreset.BasicSpec
 import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.api.dto.ResetData
+import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.NOT_AVAILABLE
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetData
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForMaiden
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForMethod
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForUrl
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName
 
 class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
@@ -19,7 +24,7 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
         def userData = completeUserData()
         endpoint.saveUser(userData)
 
-        def resetData = new ResetData(resetMethod: resetMethod, resetUrl: 'http://reset.url/')
+        def resetData = resetDataForMethod(userData, resetMethod)
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -40,7 +45,7 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
         def userData = userDataWithoutMaidenAndName()
         endpoint.saveUser(userData)
 
-        def resetData = new ResetData(resetMethod: resetMethod, resetUrl: 'http://reset.url/')
+        def resetData = resetDataForMethod(userData, resetMethod)
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -54,13 +59,29 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
         resetMethod << [null, NOT_AVAILABLE]
     }
 
+    def "Should not send password reset e-mail to user when maiden name is invalid"() {
+        given:
+        def userData = completeUserData()
+        endpoint.saveUser(userData)
+
+        def resetData = resetDataForMaiden('non_existing_maiden')
+
+        when:
+        def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
+
+        then:
+        response.status == 400
+        getMailSubject(userData.email) == null
+        getMailContent(userData.email) == null
+    }
+
     @Unroll
     def "Should not send password reset e-mail to user when reset URL is '#resetUrl'"() {
         given:
         def userData = userDataWithoutMaidenAndName()
         endpoint.saveUser(userData)
 
-        def resetData = new ResetData(resetMethod: FULL, resetUrl: resetUrl)
+        def resetData = resetDataForUrl(userData, resetUrl)
 
         when:
         def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
@@ -76,7 +97,7 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
     def "Should not send password reset e-mail to user when user does not exist"() {
         given:
-        def resetData = new ResetData(resetMethod: FULL, resetUrl: 'http://reset.url/')
+        def resetData = resetData()
 
         when:
         def response = endpoint.sendPasswordResetEmail(123, resetData)
