@@ -2,8 +2,10 @@ package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
 import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
+import com.github.mkopylec.passwordreset.domain.user.User
 import spock.lang.Unroll
 
+import static com.github.mkopylec.passwordreset.assertions.CustomAssertions.assertThat
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 
 class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
@@ -17,8 +19,16 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 200
-        //TODO Sprawdzic czy dane sie zgadzaja
-//        findInMongoDB(userData.id, entityClass) matches userData
+
+        def user = findInMongoDB(userData.id, User)
+        assertThat(user)
+                .hasId(userData.id)
+                .hasUsername(userData.username)
+                .hasHashedPassword(userData.hashedPassword)
+                .hasEmail(userData.email)
+                .hasMaidenName(userData.maidenName)
+                .hasFirstName(userData.firstName)
+                .hasLastName(userData.lastName)
     }
 
     @Unroll
@@ -33,8 +43,8 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 400
-        //TODO Sprawdzic czy dane uzytkownika sie nie zapisaly
-//        findInMongoDB(userData.id, entityClass) == null
+
+        findInMongoDB(userData.id, User) == null
 
         where:
         login << [null, '', '  ']

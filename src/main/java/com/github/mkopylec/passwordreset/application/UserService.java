@@ -30,7 +30,9 @@ class UserService {
     }
 
     private User createNewUser(UserData userData) {
-        return userFactory.createUser(userData.getId(), userData.getUsername(), userData.getEmail())
+        return userFactory.createUser(userData.getId(), userData.getHashedPassword())
+                .withUsername(userData.getUsername())
+                .withEmail(userData.getEmail())
                 .withMaidenName(userData.getMaidenName())
                 .withFullName(userData.getFirstName(), userData.getLastName())
                 .create();
