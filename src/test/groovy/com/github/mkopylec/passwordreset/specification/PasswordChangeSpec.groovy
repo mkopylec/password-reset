@@ -1,13 +1,13 @@
 package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
-import com.github.mkopylec.passwordreset.api.UserEndpoint
+import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.api.dto.Password
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 
-class PasswordChangeSpec extends BasicSpec<UserEndpoint> {
+class PasswordChangeSpec extends BasicSpec<PasswordResetEndpoint> {
 
     def "Should change user password"() {
         given:

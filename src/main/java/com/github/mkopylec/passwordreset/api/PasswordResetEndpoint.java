@@ -17,7 +17,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("users")
 @Produces(APPLICATION_JSON)
-public interface UserEndpoint {
+public interface PasswordResetEndpoint {
 
     @PUT
     @Consumes(APPLICATION_JSON)
