@@ -34,12 +34,10 @@ public interface PasswordResetEndpoint {
     ResetMethod getPasswordResetMethod(@PathParam("id") long id);
 
     @PATCH
-    @Consumes(APPLICATION_JSON)
     @Path("{id}/passwordResetData")
     Response sendPasswordResetEmail(@PathParam("id") long id, @NotNull @Valid ResetData resetData);
 
     @PATCH
-    @Consumes(APPLICATION_JSON)
     @Path("{id}/password")
     Response changePassword(@PathParam("id") long id, @NotNull @Valid Password password);
 }
