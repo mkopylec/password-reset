@@ -2,8 +2,8 @@ package com.github.mkopylec.passwordreset.domain.user;
 
 class FullName {
 
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public FullName(String firstName, String lastName) {
         this.firstName = firstName;

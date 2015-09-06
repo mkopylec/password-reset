@@ -7,23 +7,24 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class User {
 
     private long id;
-    private String username;
+    private Credentials credentials;
     private String email;
     private String maidenName;
     private FullName fullName;
 
-    User(long id, String username, String email, String maidenName, FullName fullName) {
-        checkArgument(hasUsernameOrEmail(username, email), "Username and e-mail address cannot be empty");
+    User(long id, Credentials credentials, String email, String maidenName, FullName fullName) {
+        checkNotNull(credentials != null, "Credentials cannot be empty");
         checkNotNull(fullName != null, "Full name cannot be empty");
+        checkArgument(hasUsernameOrEmail(credentials.getUsername(), email), "Username and e-mail address cannot be empty");
         this.id = id;
-        this.username = username;
+        this.credentials = credentials;
         this.email = email;
         this.maidenName = maidenName;
         this.fullName = fullName;
     }
 
     public void changeUsername(String username) {
-        this.username = username;
+        credentials = new Credentials(username, credentials.getHashedPassword());
     }
 
     public void changeEmail(String email) {

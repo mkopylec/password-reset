@@ -3,7 +3,7 @@ package com.github.mkopylec.passwordreset.domain.user;
 public class UserBuilder {
 
     private long id;
-    private String username;
+    private Credentials credentials;
     private String email;
     private String maidenName;
     private FullName fullName;
@@ -20,8 +20,8 @@ public class UserBuilder {
         return this;
     }
 
-    UserBuilder withUsername(String username) {
-        this.username = username;
+    UserBuilder withCredentials(String username, String hashedPassword) {
+        credentials = new Credentials(username, hashedPassword);
         return this;
     }
 
@@ -41,6 +41,6 @@ public class UserBuilder {
     }
 
     public User create() {
-        return new User(id, username, email, maidenName, fullName);
+        return new User(id, credentials, email, maidenName, fullName);
     }
 }
