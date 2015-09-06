@@ -26,7 +26,18 @@ W temacie e-maila jest zawarte imię i nazwisko użytkownika.
 1. Przychodzi wiadomość z kolejki z danymi użytkowników.
 2. Dane użytkowników są zapisywane do MongoDB.
 
+### Zadanie do zaimplementowania
+1. Przełączyć się na branch step-1-start
+2. Zaimplementować po kolei endpointy zaczynając od góry, tak aby testy przechodziły.
+3. Porównać implementację z branchami step-1-endpoint-x.
+
 ## Krok 2
 ### Wyświetlenie historii wysłanych e-maili:
 1. Podczas wysyłki e-maila do użytkownika dodawany jest wpis do **_historii_**.
-2. Admin wchodzi na strone gdzie wylistowane są następujące dane: **_login użytkownika_**, **_adres e-mail użytkownika_**, **_data wysłania e-maila_**.
+2. Admin na stronie podaje **_id użytkownika_**.
+3. Na stronie wylistowane są następujące dane: **_login użytkownika_**, **_adres e-mail użytkownika_**, **_data wysłania e-maila_**.
+
+### Zadanie do zaimplementowania
+1. Przełączyć się na branch step-2-start
+2. Zaimplementować ostatni endpoint tak aby testy przechodziły.
+3. Porównać implementację z branchami step-2-endpoint-1.
