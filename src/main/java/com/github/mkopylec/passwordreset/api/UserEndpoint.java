@@ -20,6 +20,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 public interface UserEndpoint {
 
     @PUT
+    @Consumes(APPLICATION_JSON)
     Response saveUser(UserData userData);
 
     @GET
