@@ -1,6 +1,8 @@
 package com.github.mkopylec.passwordreset
 
 import com.github.mkopylec.passwordreset.utils.MailReader
+import org.jboss.resteasy.client.jaxrs.ResteasyClient
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -11,17 +13,13 @@ import org.springframework.test.context.ContextConfiguration
 import spock.lang.Shared
 import spock.lang.Specification
 
-import javax.ws.rs.client.Client
-
-import static javax.ws.rs.client.ClientBuilder.newClient
-
 @WebIntegrationTest
 @ActiveProfiles("test")
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = PasswordResetService)
 class BasicSpec extends Specification {
 
     @Shared
-    private Client client = newClient()
+    private ResteasyClient client = new ResteasyClientBuilder().build()
     @Autowired
     private EmbeddedWebApplicationContext context
     @Autowired
