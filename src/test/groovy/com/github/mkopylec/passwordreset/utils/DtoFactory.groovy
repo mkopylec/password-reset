@@ -34,7 +34,15 @@ class DtoFactory {
         return userData
     }
 
-    static ResetData resetDataFor(UserData userData, ResetMethod resetMethod) {
+    static ResetData resetData() {
+        return new ResetData(
+                maidenName: 'Maiden',
+                resetMethod: FULL,
+                resetUrl: 'http://redirect.url/'
+        )
+    }
+
+    static ResetData resetDataForMethod(UserData userData, ResetMethod resetMethod) {
         return new ResetData(
                 maidenName: userData.maidenName,
                 resetMethod: resetMethod,
@@ -42,11 +50,19 @@ class DtoFactory {
         )
     }
 
-    static ResetData resetDataFor(UserData userData, String resetUrl) {
+    static ResetData resetDataForUrl(UserData userData, String resetUrl) {
         return new ResetData(
                 maidenName: userData.maidenName,
                 resetMethod: FULL,
                 resetUrl: resetUrl
+        )
+    }
+
+    static ResetData resetDataForMaiden(String maidenName) {
+        return new ResetData(
+                maidenName: maidenName,
+                resetMethod: FULL,
+                resetUrl: 'http://redirect.url/'
         )
     }
 }
