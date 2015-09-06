@@ -35,6 +35,14 @@ class UserStorage implements UserRepository {
 
     @Override
     public User findByLoginOrEmail(String loginOrEmail) {
+        UserLoginDocument userLogin = userLoginDao.findOne(loginOrEmail);
+        if (userLogin != null) {
+            return findById(userLogin.getId());
+        }
+        UserEmailDocument userEmail = userEmailDao.findOne(loginOrEmail);
+        if (userEmail != null) {
+            return findById(userEmail.getId());
+        }
         return null;
     }
 }
