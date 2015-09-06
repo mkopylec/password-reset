@@ -41,6 +41,24 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
         email << ['  ', null, '']
     }
 
+    @Unroll
+    def "Should not save user when hashed password is '#hashedPassword'"() {
+        given:
+        def userData = completeUserData()
+        userData.hashedPassword = hashedPassword
+
+        when:
+        def response = endpoint.saveUser(userData)
+
+        then:
+        response.status == 400
+        //TODO Sprawdzic czy dane uzytkownika sie nie zapisaly
+//        findInMongoDB(userData.id, entityClass) == null
+
+        where:
+        hashedPassword << [null, '', '  ']
+    }
+
     def "Should not save user when no user data was provided"() {
         when:
         endpoint.saveUser(null)
