@@ -3,7 +3,6 @@ package com.github.mkopylec.passwordreset.specification
 import com.github.mkopylec.passwordreset.BasicSpec
 import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.domain.user.User
-import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.assertions.CustomAssertions.assertThat
