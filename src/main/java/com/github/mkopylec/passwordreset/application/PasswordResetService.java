@@ -30,7 +30,7 @@ public class PasswordResetService implements PasswordResetEndpoint {
 
     @Override
     public long getUserId(String loginOrEmail) {
-        throw new UnsupportedOperationException();
+        return userService.getUserId(loginOrEmail);
     }
 
     @Override

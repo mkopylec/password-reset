@@ -7,6 +7,8 @@ import com.github.mkopylec.passwordreset.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.NotFoundException;
+
 @Service
 class UserService {
 
@@ -27,6 +29,14 @@ class UserService {
             updateUser(user, userData);
         }
         userRepository.save(user);
+    }
+
+    public long getUserId(String loginOrEmail) {
+        User user = userRepository.findByLoginOrEmail(loginOrEmail);
+        if (user == null) {
+            throw new NotFoundException("User with login or e-mail: '" + loginOrEmail + "' does not exist");
+        }
+        return user.getId();
     }
 
     private User createNewUser(UserData userData) {

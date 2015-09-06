@@ -32,4 +32,9 @@ class UserStorage implements UserRepository {
     public User findById(long id) {
         return userDao.findOne(id);
     }
+
+    @Override
+    public User findByLoginOrEmail(String loginOrEmail) {
+        return null;
+    }
 }
