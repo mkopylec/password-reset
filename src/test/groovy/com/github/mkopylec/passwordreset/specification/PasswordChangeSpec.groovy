@@ -26,7 +26,7 @@ class PasswordChangeSpec extends BasicSpec<UserEndpoint> {
     }
 
     @Unroll
-    def "Should not change user password when password is #passwordText"() {
+    def "Should not change user password when password is '#passwordText'"() {
         given:
         def userData = completeUserData()
         endpoint.saveUser(userData)

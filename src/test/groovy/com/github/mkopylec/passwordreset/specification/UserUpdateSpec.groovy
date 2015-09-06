@@ -22,7 +22,7 @@ class UserUpdateSpec extends BasicSpec<UserEndpoint> {
     }
 
     @Unroll
-    def "Should not save user when login is #login and e-mail is #email"() {
+    def "Should not save user when login is '#login' and e-mail is '#email'"() {
         given:
         def userData = completeUserData()
         userData.username = login
