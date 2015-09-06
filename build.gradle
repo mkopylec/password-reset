@@ -29,5 +29,6 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.2.5.RELEASE'
     testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.0-groovy-2.4'
     testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '1.50.0'
-    testCompile group: 'org.glassfish.jersey.ext', name: 'jersey-proxy-client', version: '2.14'
+    testCompile group: 'org.jboss.resteasy', name: 'resteasy-client', version: '3.0.12.Final'
+    testCompile group: 'org.jboss.resteasy', name: 'resteasy-jackson-provider', version: '3.0.12.Final'
 }
