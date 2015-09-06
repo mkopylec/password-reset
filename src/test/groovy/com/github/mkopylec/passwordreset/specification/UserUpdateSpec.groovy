@@ -3,7 +3,6 @@ package com.github.mkopylec.passwordreset.specification
 import com.github.mkopylec.passwordreset.BasicSpec
 import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.domain.user.User
-import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.assertions.CustomAssertions.assertThat
@@ -50,6 +49,24 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
         where:
         login << [null, '', '  ']
         email << ['  ', null, '']
+    }
+
+    @Unroll
+    def "Should not save user when hashed password is '#hashedPassword'"() {
+        given:
+        def userData = completeUserData()
+        userData.hashedPassword = hashedPassword
+
+        when:
+        def response = endpoint.saveUser(userData)
+
+        then:
+        response.status == 400
+
+        findInMongoDB(userData.id, User) == null
+
+        where:
+        hashedPassword << [null, '', '  ']
     }
 
     def "Should not save user when no user data was provided"() {
