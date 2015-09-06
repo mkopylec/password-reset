@@ -2,6 +2,8 @@ package com.github.mkopylec.passwordreset.specification
 
 import com.github.mkopylec.passwordreset.BasicSpec
 
+import javax.ws.rs.NotFoundException
+
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.NOT_AVAILABLE
 import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE
@@ -17,13 +19,7 @@ class PasswordResetMethodSpec extends BasicSpec {
         getEndpoint().saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.username)
-
-        then:
-        resetMethod == FULL
-
-        when:
-        resetMethod = getEndpoint().getPasswordResetMethod(userData.email)
+        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == FULL
@@ -35,13 +31,7 @@ class PasswordResetMethodSpec extends BasicSpec {
         getEndpoint().saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.username)
-
-        then:
-        resetMethod == SIMPLE
-
-        when:
-        resetMethod = getEndpoint().getPasswordResetMethod(userData.email)
+        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == SIMPLE
@@ -53,15 +43,17 @@ class PasswordResetMethodSpec extends BasicSpec {
         getEndpoint().saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.username)
+        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == NOT_AVAILABLE
+    }
 
+    def "Should not get password reset method when user does not exist"() {
         when:
-        resetMethod = getEndpoint().getPasswordResetMethod(userData.email)
+        getEndpoint().getPasswordResetMethod(123)
 
         then:
-        resetMethod == NOT_AVAILABLE
+        thrown NotFoundException
     }
 }

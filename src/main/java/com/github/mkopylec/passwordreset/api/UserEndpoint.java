@@ -17,21 +17,26 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("users")
 @Produces(APPLICATION_JSON)
-@Consumes(APPLICATION_JSON)
 public interface UserEndpoint {
 
     @PUT
     Response saveUser(UserData userData);
 
     @GET
-    @Path("{loginOrEmail}/passwordResetMethod")
-    ResetMethod getPasswordResetMethod(@PathParam("loginOrEmail") String loginOrEmail);
+    @Path("{loginOrEmail}/id")
+    long getUserId(@PathParam("loginOrEmail") String loginOrEmail);
+
+    @GET
+    @Path("{id}/passwordResetMethod")
+    ResetMethod getPasswordResetMethod(@PathParam("id") long id);
 
     @PUT
-    @Path("{loginOrEmail}/passwordResetData")
-    Response sendPasswordResetEmail(@PathParam("loginOrEmail") String loginOrEmail, ResetData resetData);
+    @Consumes(APPLICATION_JSON)
+    @Path("{id}/passwordResetData")
+    Response sendPasswordResetEmail(@PathParam("id") long id, ResetData resetData);
 
     @PUT
-    @Path("{loginOrEmail}/password")
-    Response changePassword(@PathParam("loginOrEmail") String loginOrEmail, Password password);
+    @Consumes(APPLICATION_JSON)
+    @Path("{id}/password")
+    Response changePassword(@PathParam("id") long id, Password password);
 }

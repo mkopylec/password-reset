@@ -16,15 +16,7 @@ class PasswordChangeSpec extends BasicSpec {
         def password = new Password(text: 't0p_s3cr3t')
 
         when:
-        def response = getEndpoint().changePassword(userData.username, password)
-
-        then:
-        response.status == 200
-        //TODO Sprawdzic czy haslo zostalo zmienione
-//        findInMongoDB(userData.id, entityClass).password == 't0p_s3cr3t hash'
-
-        when:
-        response = getEndpoint().changePassword(userData.email, password)
+        def response = getEndpoint().changePassword(userData.id, password)
 
         then:
         response.status == 200
@@ -41,12 +33,23 @@ class PasswordChangeSpec extends BasicSpec {
         def password = new Password(text: passwordText)
 
         when:
-        def response = getEndpoint().changePassword(userData.username, password)
+        def response = getEndpoint().changePassword(userData.id, password)
 
         then:
         response.status == 400
 
         where:
         passwordText << [null, '', '  ']
+    }
+
+    def "Should not change user password when user does not exist"() {
+        given:
+        def password = new Password(text: 'password_text')
+
+        when:
+        def response = getEndpoint().changePassword(123, password)
+
+        then:
+        response.status == 404
     }
 }
