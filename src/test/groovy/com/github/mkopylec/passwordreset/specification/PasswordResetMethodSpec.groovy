@@ -17,10 +17,10 @@ class PasswordResetMethodSpec extends BasicSpec<UserEndpoint> {
     def "Should get full password reset method when user has maiden name, first and last name"() {
         given:
         def userData = completeUserData()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
+        def resetMethod = endpoint.getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == FULL
@@ -29,10 +29,10 @@ class PasswordResetMethodSpec extends BasicSpec<UserEndpoint> {
     def "Should get simple password reset method when user has no maiden name but has first and last name"() {
         given:
         def userData = userDataWithoutMaiden()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
+        def resetMethod = endpoint.getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == SIMPLE
@@ -41,10 +41,10 @@ class PasswordResetMethodSpec extends BasicSpec<UserEndpoint> {
     def "Should not allow to reset password when user has no maiden name, first and last name"() {
         given:
         def userData = userDataWithoutMaidenAndName()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         when:
-        def resetMethod = getEndpoint().getPasswordResetMethod(userData.id)
+        def resetMethod = endpoint.getPasswordResetMethod(userData.id)
 
         then:
         resetMethod == NOT_AVAILABLE
@@ -52,7 +52,7 @@ class PasswordResetMethodSpec extends BasicSpec<UserEndpoint> {
 
     def "Should not get password reset method when user does not exist"() {
         when:
-        getEndpoint().getPasswordResetMethod(123)
+        endpoint.getPasswordResetMethod(123)
 
         then:
         thrown NotFoundException

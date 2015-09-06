@@ -13,7 +13,7 @@ class UserUpdateSpec extends BasicSpec<UserEndpoint> {
         def userData = completeUserData()
 
         when:
-        def response = getEndpoint().saveUser(userData)
+        def response = endpoint.saveUser(userData)
 
         then:
         response.status == 200
@@ -29,7 +29,7 @@ class UserUpdateSpec extends BasicSpec<UserEndpoint> {
         userData.email = email
 
         when:
-        def response = getEndpoint().saveUser(userData)
+        def response = endpoint.saveUser(userData)
 
         then:
         response.status == 400
@@ -39,5 +39,13 @@ class UserUpdateSpec extends BasicSpec<UserEndpoint> {
         where:
         login << [null, '', '  ']
         email << ['  ', null, '']
+    }
+
+    def "Should not save user when no user data was provided"() {
+        when:
+        endpoint.saveUser(null)
+
+        then:
+        thrown IllegalArgumentException
     }
 }
