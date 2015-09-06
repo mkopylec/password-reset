@@ -1,8 +1,11 @@
 package com.github.mkopylec.passwordreset.api.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class UserData {
 
     private long id;
+    @NotNull
     private String username;
     private String email;
     private String maidenName;

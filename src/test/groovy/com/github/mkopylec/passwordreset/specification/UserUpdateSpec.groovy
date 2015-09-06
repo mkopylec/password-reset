@@ -10,6 +10,7 @@ class UserUpdateSpec extends BasicSpec {
     def "Should save user"() {
         given:
         def userData = completeUserData()
+        userData.username = null
 
         when:
         def response = getEndpoint().saveUser(userData)
