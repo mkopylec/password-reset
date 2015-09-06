@@ -1,7 +1,10 @@
 package com.github.mkopylec.passwordreset.utils
 
+import com.github.mkopylec.passwordreset.api.dto.ResetData
 import com.github.mkopylec.passwordreset.api.dto.ResetMethod
 import com.github.mkopylec.passwordreset.api.dto.UserData
+
+import static ResetMethod.FULL
 
 class DtoFactory {
 
@@ -31,19 +34,35 @@ class DtoFactory {
         return userData
     }
 
-//    static ResetData resetDataFor(UserData userData, ResetMethod resetMethod) {
-//        return new ResetData(
-//                maidenName: userData.maidenName,
-//                resetMethod: resetMethod,
-//                resetUrl: 'http://redirect.url/'
-//        )
-//    }
-//
-//    static ResetData resetDataFor(UserData userData, String resetUrl) {
-//        return new ResetData(
-//                maidenName: userData.maidenName,
-//                resetMethod: FULL,
-//                resetUrl: resetUrl
-//        )
-//    }
+    static ResetData resetData() {
+        return new ResetData(
+                maidenName: 'Maiden',
+                resetMethod: FULL,
+                resetUrl: 'http://redirect.url/'
+        )
+    }
+
+    static ResetData resetDataForMethod(UserData userData, ResetMethod resetMethod) {
+        return new ResetData(
+                maidenName: userData.maidenName,
+                resetMethod: resetMethod,
+                resetUrl: 'http://redirect.url/'
+        )
+    }
+
+    static ResetData resetDataForUrl(UserData userData, String resetUrl) {
+        return new ResetData(
+                maidenName: userData.maidenName,
+                resetMethod: FULL,
+                resetUrl: resetUrl
+        )
+    }
+
+    static ResetData resetDataForMaiden(String maidenName) {
+        return new ResetData(
+                maidenName: maidenName,
+                resetMethod: FULL,
+                resetUrl: 'http://redirect.url/'
+        )
+    }
 }
