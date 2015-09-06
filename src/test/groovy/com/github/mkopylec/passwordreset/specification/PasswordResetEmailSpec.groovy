@@ -18,12 +18,12 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
     def "Should send password reset e-mail to user when reset method is #resetMethod"() {
         given:
         def userData = completeUserData()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         def resetData = resetDataFor(userData, resetMethod)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
+        def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 200
@@ -39,12 +39,12 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
     def "Should not send password reset e-mail to user when reset method is #resetMethod"() {
         given:
         def userData = userDataWithoutMaidenAndName()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         def resetData = resetDataFor(userData, resetMethod)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
+        def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 400
@@ -59,12 +59,12 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
     def "Should not send password reset e-mail to user when reset URL is #resetUrl"() {
         given:
         def userData = userDataWithoutMaidenAndName()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         def resetData = resetDataFor(userData, resetUrl)
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(userData.id, resetData)
+        def response = endpoint.sendPasswordResetEmail(userData.id, resetData)
 
         then:
         response.status == 400
@@ -80,9 +80,17 @@ class PasswordResetEmailSpec extends BasicSpec<UserEndpoint> {
         def resetData = new ResetData(resetMethod: FULL, maidenName: 'maiden', resetUrl: 'url')
 
         when:
-        def response = getEndpoint().sendPasswordResetEmail(123, resetData)
+        def response = endpoint.sendPasswordResetEmail(123, resetData)
 
         then:
         response.status == 404
+    }
+
+    def "Should not send password reset e-mail when no reset data was provided"() {
+        when:
+        endpoint.sendPasswordResetEmail(123, null)
+
+        then:
+        thrown IllegalArgumentException
     }
 }

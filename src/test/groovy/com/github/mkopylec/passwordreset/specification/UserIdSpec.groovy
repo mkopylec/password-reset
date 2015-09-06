@@ -12,16 +12,16 @@ class UserIdSpec extends BasicSpec<UserEndpoint> {
     def "Should get user id by login or e-mail address"() {
         given:
         def userData = completeUserData()
-        getEndpoint().saveUser(userData)
+        endpoint.saveUser(userData)
 
         when:
-        def userId = getEndpoint().getUserId(userData.username)
+        def userId = endpoint.getUserId(userData.username)
 
         then:
         userId == userData.id
 
         when:
-        userId = getEndpoint().getUserId(userData.email)
+        userId = endpoint.getUserId(userData.email)
 
         then:
         userId == userData.id
@@ -29,7 +29,7 @@ class UserIdSpec extends BasicSpec<UserEndpoint> {
 
     def "Should not get user id by login or e-mail address when user does not exist"() {
         when:
-        getEndpoint().getUserId('non_existing_login_or_email')
+        endpoint.getUserId('non_existing_login_or_email')
 
         then:
         thrown NotFoundException
