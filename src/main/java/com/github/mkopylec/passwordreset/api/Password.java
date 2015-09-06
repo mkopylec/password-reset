@@ -1,6 +1,6 @@
 package com.github.mkopylec.passwordreset.api;
 
-public class NewPassword {
+public class Password {
 
     private String text;
 

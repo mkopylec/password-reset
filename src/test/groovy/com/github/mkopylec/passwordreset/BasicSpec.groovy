@@ -1,6 +1,7 @@
 package com.github.mkopylec.passwordreset
 
 import com.github.mkopylec.passwordreset.api.UserEndpoint
+import com.github.mkopylec.passwordreset.utils.MailReader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -27,10 +28,24 @@ class BasicSpec extends Specification {
     private EmbeddedWebApplicationContext context
     @Autowired
     private MongoTemplate mongoTemplate
+    @Autowired
+    private MailReader mailReader
 
     protected UserEndpoint getEndpoint() {
         def target = client.target("http://localhost:$context.embeddedServletContainer.port")
         return newResource(UserEndpoint, target)
+    }
+
+    protected <T> T findInMongoDB(Object id, Class<T> entityClass) {
+        return mongoTemplate.findById(id, entityClass)
+    }
+
+    protected String getMailContent(String email) {
+        return mailReader.getMailContent(email)
+    }
+
+    protected String getMailSubject(String email) {
+        return mailReader.getMailSubject(email)
     }
 
     void cleanup() {

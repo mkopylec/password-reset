@@ -2,15 +2,15 @@ package com.github.mkopylec.passwordreset.api;
 
 public class ResetData {
 
-    private String resetMethod;
+    private ResetMethod resetMethod;
     private String maidenName;
     private String resetUrl;
 
-    public String getResetMethod() {
+    public ResetMethod getResetMethod() {
         return resetMethod;
     }
 
-    public void setResetMethod(String resetMethod) {
+    public void setResetMethod(ResetMethod resetMethod) {
         this.resetMethod = resetMethod;
     }
 

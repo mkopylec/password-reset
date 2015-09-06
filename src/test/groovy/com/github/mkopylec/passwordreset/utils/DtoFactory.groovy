@@ -1,7 +1,10 @@
-package com.github.mkopylec.passwordreset
+package com.github.mkopylec.passwordreset.utils
 
 import com.github.mkopylec.passwordreset.api.ResetData
+import com.github.mkopylec.passwordreset.api.ResetMethod
 import com.github.mkopylec.passwordreset.api.UserData
+
+import static com.github.mkopylec.passwordreset.api.ResetMethod.FULL
 
 class DtoFactory {
 
@@ -30,11 +33,19 @@ class DtoFactory {
         return userData
     }
 
-    static ResetData resetDataFor(UserData userData, String resetMethod) {
+    static ResetData resetDataFor(UserData userData, ResetMethod resetMethod) {
         return new ResetData(
                 maidenName: userData.maidenName,
                 resetMethod: resetMethod,
                 resetUrl: 'http://redirect.url/'
+        )
+    }
+
+    static ResetData resetDataFor(UserData userData, String resetUrl) {
+        return new ResetData(
+                maidenName: userData.maidenName,
+                resetMethod: FULL,
+                resetUrl: resetUrl
         )
     }
 }

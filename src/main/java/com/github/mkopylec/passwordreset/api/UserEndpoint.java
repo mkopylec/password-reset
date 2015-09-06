@@ -15,6 +15,9 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Consumes(APPLICATION_JSON)
 public interface UserEndpoint {
 
+    @PUT
+    Response saveUser(UserData userData);
+
     @GET
     @Path("{loginOrEmail}/passwordResetMethod")
     ResetMethod getPasswordResetMethod(@PathParam("loginOrEmail") String loginOrEmail);
@@ -25,8 +28,5 @@ public interface UserEndpoint {
 
     @PUT
     @Path("{loginOrEmail}/password")
-    Response changePassword(@PathParam("loginOrEmail") String loginOrEmail, NewPassword newPassword);
-
-    @PUT
-    Response saveUser(UserData userData);
+    Response changePassword(@PathParam("loginOrEmail") String loginOrEmail, Password password);
 }
