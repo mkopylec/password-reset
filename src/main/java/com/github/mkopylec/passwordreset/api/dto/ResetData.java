@@ -1,7 +1,10 @@
 package com.github.mkopylec.passwordreset.api.dto;
 
+import com.github.mkopylec.passwordreset.api.validation.AllowedResetMethod;
+
 public class ResetData {
 
+    @AllowedResetMethod(message = "Not allowed password reset method")
     private ResetMethod resetMethod;
     private String maidenName;
     private String resetUrl;

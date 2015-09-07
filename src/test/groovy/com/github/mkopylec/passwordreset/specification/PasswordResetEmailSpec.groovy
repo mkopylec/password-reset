@@ -12,6 +12,7 @@ import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetData
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForMaiden
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForMethod
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForUrl
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithRandomFullName
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithoutMaidenAndName
 
 class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
@@ -19,7 +20,7 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
     @Unroll
     def "Should send password reset e-mail to user when reset method is #resetMethod"() {
         given:
-        def userData = completeUserData()
+        def userData = userDataWithRandomFullName()
         endpoint.saveUser(userData)
 
         def resetData = resetDataForMethod(userData, resetMethod)

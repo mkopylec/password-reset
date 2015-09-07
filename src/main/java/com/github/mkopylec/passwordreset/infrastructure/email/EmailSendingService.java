@@ -22,7 +22,7 @@ class EmailSendingService implements EmailSender {
     @Override
     public void sendPasswordResetEmail(User user, String resetUrl) {
         String subject = format("Witaj %s %s!", user.getFirstName(), user.getLastName());
-        String message = format("<html>Aby dokonczyc proces odnawiania hasla kliknij w ponizszy link.<br /><a href='%s'>%s</a></html>", resetUrl, resetUrl);
+        String message = format("Aby dokonczyc proces odnawiania hasla kliknij w link: '%s'", resetUrl);
         sendEmail(user.getEmail(), subject, message);
     }
 

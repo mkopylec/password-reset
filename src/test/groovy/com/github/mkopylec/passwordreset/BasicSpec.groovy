@@ -1,5 +1,6 @@
 package com.github.mkopylec.passwordreset
 
+import com.github.mkopylec.passwordreset.api.dto.UserData
 import com.github.mkopylec.passwordreset.utils.MailReader
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
@@ -43,12 +44,12 @@ class BasicSpec<E> extends Specification {
         return mongoTemplate.findById(id, entityClass)
     }
 
-    protected String getMailContent(String email) {
-        return mailReader.getMailContent(email)
+    protected String getMailContent(UserData userData) {
+        return mailReader.getMailContent(userData)
     }
 
-    protected String getMailSubject(String email) {
-        return mailReader.getMailSubject(email)
+    protected String getMailSubject(UserData userData) {
+        return mailReader.getMailSubject(userData)
     }
 
     void cleanup() {

@@ -1,8 +1,11 @@
 spring.mail:
-  host: smtp.googlemail.com
-  port: 465
+  host: smtp.gmail.com
+  port: 587
   username: ddd.workshop.mial
   password: workshop123
+  properties:
+    mail.smtp.auth: true
+    mail.smtp.starttls.enable: true
 
 spring.data.mongodb:
   host: 127.0.0.1
