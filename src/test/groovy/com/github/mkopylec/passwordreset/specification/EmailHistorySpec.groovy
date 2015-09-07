@@ -22,6 +22,8 @@ class EmailHistorySpec extends BasicSpec<PasswordResetEndpoint> {
 
         endpoint.changePassword(userData.id, new Password(text: 'password1'))
         endpoint.changePassword(userData.id, new Password(text: 'password2'))
+
+
         endpoint.changePassword(userData.id, new Password(text: 'password3'))
 
         when:

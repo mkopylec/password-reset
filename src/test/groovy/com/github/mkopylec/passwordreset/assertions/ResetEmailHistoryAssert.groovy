@@ -6,15 +6,14 @@ import groovy.transform.PackageScope
 @PackageScope
 class ResetEmailHistoryAssert {
 
-    private final List<ResetEmail> actual
+    private List<ResetEmail> actual
 
     protected ResetEmailHistoryAssert(List<ResetEmail> actual) {
         assert actual != null
         this.actual = actual
     }
 
-    ResetEmailHistoryAssert hasNumberOfEntries(int number) {
-        assert actual.size() == number
-        return this
+    ResetEmailEntryAssert contains(int number) {
+        return new ResetEmailEntryAssert(number, actual, this)
     }
 }
