@@ -1,12 +1,13 @@
 package com.github.mkopylec.passwordreset.api.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ResetEmail {
 
     private String username;
     private String email;
-    private LocalDateTime sendDate;
+    private Date sendDate;
 
     public String getUsername() {
         return username;
@@ -24,11 +25,11 @@ public class ResetEmail {
         this.email = email;
     }
 
-    public LocalDateTime getSendDate() {
+    public Date getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(LocalDateTime sendDate) {
+    public void setSendDate(Date sendDate) {
         this.sendDate = sendDate;
     }
 }
