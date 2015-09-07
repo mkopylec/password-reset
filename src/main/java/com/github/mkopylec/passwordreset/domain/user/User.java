@@ -45,6 +45,10 @@ public class User {
         credentials = new Credentials(username, credentials.getHashedPassword());
     }
 
+    public void changeHashedPassword(String hashedPassword) {
+        credentials = new Credentials(credentials.getUsername(), hashedPassword);
+    }
+
     public void changeEmail(String email) {
         this.email = email;
     }

@@ -1,5 +1,6 @@
-package com.github.mkopylec.passwordreset.application;
+package com.github.mkopylec.passwordreset.application.user;
 
+import com.github.mkopylec.passwordreset.api.dto.Password;
 import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
 import com.github.mkopylec.passwordreset.domain.user.User;
@@ -14,15 +15,17 @@ import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE;
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.notFoundIfNull;
 
 @Service
-class UserService {
+public class UserService {
 
     private final UserFactory userFactory;
     private final UserRepository userRepository;
+    private final PasswordHasher passwordHasher;
 
     @Autowired
-    public UserService(UserFactory userFactory, UserRepository userRepository) {
+    public UserService(UserFactory userFactory, UserRepository userRepository, PasswordHasher passwordHasher) {
         this.userFactory = userFactory;
         this.userRepository = userRepository;
+        this.passwordHasher = passwordHasher;
     }
 
     public void saveUser(UserData userData) {
@@ -45,6 +48,14 @@ class UserService {
         User user = userRepository.findById(id);
         notFoundIfNull(user, "User with id: '" + id + "' does not exist");
         return resolveResetMethod(user);
+    }
+
+    public void changePassword(long id, Password password) {
+        User user = userRepository.findById(id);
+        notFoundIfNull(user, "User with id: '" + id + "' does not exist");
+        String hashedPassword = passwordHasher.hash(password.getText());
+        user.changeHashedPassword(hashedPassword);
+        userRepository.save(user);
     }
 
     private User createNewUser(UserData userData) {

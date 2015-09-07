@@ -1,4 +1,4 @@
-package com.github.mkopylec.passwordreset.application;
+package com.github.mkopylec.passwordreset.application.email;
 
 import com.github.mkopylec.passwordreset.domain.user.User;
 

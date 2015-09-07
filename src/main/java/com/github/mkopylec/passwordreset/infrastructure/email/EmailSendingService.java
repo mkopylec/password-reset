@@ -1,6 +1,6 @@
 package com.github.mkopylec.passwordreset.infrastructure.email;
 
-import com.github.mkopylec.passwordreset.application.EmailSender;
+import com.github.mkopylec.passwordreset.application.email.EmailSender;
 import com.github.mkopylec.passwordreset.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;

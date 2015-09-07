@@ -3,6 +3,7 @@ package com.github.mkopylec.passwordreset.specification
 import com.github.mkopylec.passwordreset.BasicSpec
 import com.github.mkopylec.passwordreset.api.PasswordResetEndpoint
 import com.github.mkopylec.passwordreset.api.dto.Password
+import com.github.mkopylec.passwordreset.domain.user.User
 import spock.lang.Unroll
 
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
@@ -21,8 +22,8 @@ class PasswordChangeSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 200
-        //TODO Sprawdzic czy haslo zostalo zmienione
-//        findInMongoDB(userData.id, entityClass).password == 't0p_s3cr3t hash'
+
+        findInMongoDB(userData.id, User).hashedPassword == '324803bd3d0eb6134d6c70e9aff21878cf8ee38be3049259e5541576c8f38128'
     }
 
     @Unroll
