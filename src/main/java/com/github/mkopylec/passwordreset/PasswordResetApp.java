@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
-public class PasswordResetService {
+public class PasswordResetApp {
 
     public static void main(String[] args) {
-        run(PasswordResetService.class);
+        run(PasswordResetApp.class);
     }
 }
