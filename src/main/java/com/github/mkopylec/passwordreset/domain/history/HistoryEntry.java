@@ -6,7 +6,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-class HistoryEntry {
+public class HistoryEntry {
 
     private final String username;
     private final String email;

@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+import static java.util.Collections.unmodifiableList;
+
 @Document(collection = "email_history")
 public class EmailHistory {
 
@@ -15,5 +17,13 @@ public class EmailHistory {
     EmailHistory(long userId, List<HistoryEntry> entries) {
         this.userId = userId;
         this.entries = entries;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public List<HistoryEntry> getEntries() {
+        return unmodifiableList(entries);
     }
 }

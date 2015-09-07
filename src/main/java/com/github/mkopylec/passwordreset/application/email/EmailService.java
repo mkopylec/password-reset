@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.badRequestIfFalse;
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.notFoundIfNull;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class EmailService {
@@ -45,5 +46,16 @@ public class EmailService {
     public List<ResetEmail> getEmailHistory(long id) {
         EmailHistory history = historyRepository.findOne(id);
         notFoundIfNull(history, "History for user with id: '" + id + "' does not exist");
+
+        return history.getEntries()
+                .stream()
+                .map(entry -> {
+                    ResetEmail resetEmail = new ResetEmail();
+                    resetEmail.setUsername(entry.getUsername());
+                    resetEmail.setEmail(entry.getEmail());
+                    resetEmail.setSendDate(entry.getSendDate());
+                    return resetEmail;
+                })
+                .collect(toList());
     }
 }
