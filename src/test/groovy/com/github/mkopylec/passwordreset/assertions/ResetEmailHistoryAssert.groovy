@@ -13,6 +13,11 @@ class ResetEmailHistoryAssert {
         this.actual = actual
     }
 
+    ResetEmailHistoryAssert containsEntries(int numberOfEntries) {
+        assert actual.size() == numberOfEntries
+        return this
+    }
+
     ResetEmailEntryAssert contains(int number) {
         return new ResetEmailEntryAssert(number, actual, this)
     }
