@@ -38,9 +38,13 @@ class EmailHistorySpec extends BasicSpec<PasswordResetEndpoint> {
                 .contains(1).entriesFor(userData2.username, userData2.email)
     }
 
-    def "Should not get email history when user does not exist"() {
+    def "Should not get email history when user does not have history"() {
+        given:
+        def userData = completeUserData()
+        endpoint.saveUser(userData)
+
         when:
-        endpoint.getEmailHistory(123)
+        endpoint.getEmailHistory(userData.id)
 
         then:
         thrown NotFoundException
