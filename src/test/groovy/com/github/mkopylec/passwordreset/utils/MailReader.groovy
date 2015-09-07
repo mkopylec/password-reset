@@ -1,11 +1,11 @@
 package com.github.mkopylec.passwordreset.utils
 
+import com.github.mkopylec.passwordreset.api.dto.UserData
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mail.MailProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 
-import javax.mail.Flags
 import javax.mail.Folder
 import javax.mail.Message
 import javax.mail.MessagingException
@@ -13,10 +13,11 @@ import javax.mail.Multipart
 import javax.mail.Part
 import javax.mail.Session
 import javax.mail.Store
+import javax.mail.search.SearchTerm
+import javax.mail.search.SubjectTerm
 
 import static com.github.mkopylec.passwordreset.utils.MailReader.MailPart.CONTENT
 import static com.github.mkopylec.passwordreset.utils.MailReader.MailPart.SUBJECT
-import static javax.mail.Flags.Flag.SEEN
 import static javax.mail.Folder.READ_WRITE
 import static javax.mail.Session.getInstance
 
@@ -27,15 +28,15 @@ class MailReader {
     @Autowired
     private MailProperties mail
 
-    String getMailSubject(String email) throws MessagingException, IOException {
-        return getMailPart(email, SUBJECT)
+    String getMailSubject(UserData userData) throws MessagingException, IOException {
+        return getMailPart(userData, SUBJECT)
     }
 
-    String getMailContent(String email) throws MessagingException, IOException {
-        return getMailPart(email, CONTENT)
+    String getMailContent(UserData userData) throws MessagingException, IOException {
+        return getMailPart(userData, CONTENT)
     }
 
-    private String getMailPart(String email, MailPart mailPart) throws MessagingException, IOException {
+    private String getMailPart(UserData userData, MailPart mailPart) throws MessagingException, IOException {
         Properties props = new Properties()
         props.setProperty('mail.store.protocol', 'imaps')
 
@@ -44,19 +45,16 @@ class MailReader {
         Folder inbox = null
         try {
             store = session.getStore()
-            store.connect(mail.host, email, mail.password)
+            store.connect(mail.host, userData.email, mail.password)
             inbox = store.getFolder('INBOX')
             inbox.open(READ_WRITE)
 
-            int messageCount = inbox.getMessageCount()
-            if (messageCount < 1) {
+            SearchTerm search = new SubjectTerm("$userData.firstName $userData.lastName")
+            Message[] messages = inbox.search(search)
+            if (messages.length == 0) {
                 return null
             }
-            Message lastMessage = inbox.getMessage(messageCount)
-
-            if (lastMessage.getFlags().contains(new Flags(SEEN))) {
-                return null
-            }
+            Message lastMessage = messages[messages.length - 1]
             return mailPart == SUBJECT ? lastMessage.subject : getBodyText(lastMessage)
         } finally {
             if (inbox != null) {
