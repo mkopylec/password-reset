@@ -5,6 +5,7 @@ import com.github.mkopylec.passwordreset.api.dto.ResetMethod
 import com.github.mkopylec.passwordreset.api.dto.UserData
 
 import static ResetMethod.FULL
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
 
 class DtoFactory {
 
@@ -17,6 +18,18 @@ class DtoFactory {
                 maidenName: 'mama',
                 firstName: 'James',
                 lastName: 'Bond'
+        )
+    }
+
+    static UserData userDataWithRandomFullName() {
+        return new UserData(
+                id: 666,
+                username: 'some_user',
+                hashedPassword: 't0p_s3cr3t hash',
+                email: 'ddd.workshop.mial@gmail.com',
+                maidenName: 'mama',
+                firstName: randomAlphanumeric(16),
+                lastName: randomAlphanumeric(16)
         )
     }
 
