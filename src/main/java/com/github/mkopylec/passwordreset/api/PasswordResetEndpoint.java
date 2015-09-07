@@ -2,6 +2,7 @@ package com.github.mkopylec.passwordreset.api;
 
 import com.github.mkopylec.passwordreset.api.dto.Password;
 import com.github.mkopylec.passwordreset.api.dto.ResetData;
+import com.github.mkopylec.passwordreset.api.dto.ResetEmail;
 import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
 
@@ -14,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -40,4 +42,8 @@ public interface PasswordResetEndpoint {
     @PATCH
     @Path("{id}/password")
     Response changePassword(@PathParam("id") long id, @NotNull(message = "Empty password data") @Valid Password password);
+
+    @GET
+    @Path("{id}/emailHistory")
+    List<ResetEmail> getEmailHistory(@PathParam("id") long id);
 }
