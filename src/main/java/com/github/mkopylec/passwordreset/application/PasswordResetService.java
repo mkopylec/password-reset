@@ -58,6 +58,6 @@ public class PasswordResetService implements PasswordResetEndpoint {
 
     @Override
     public List<ResetEmail> getEmailHistory(long id) {
-        throw new UnsupportedOperationException();
+        return emailService.getEmailHistory(id);
     }
 }
