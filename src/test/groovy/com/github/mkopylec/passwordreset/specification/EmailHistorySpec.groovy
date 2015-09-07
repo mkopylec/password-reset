@@ -9,12 +9,13 @@ import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.FULL
 import static com.github.mkopylec.passwordreset.assertions.CustomAssertions.assertThat
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserData
 import static com.github.mkopylec.passwordreset.utils.DtoFactory.resetDataForMethod
+import static com.github.mkopylec.passwordreset.utils.DtoFactory.userDataWithRandomFullName
 
 class EmailHistorySpec extends BasicSpec<PasswordResetEndpoint> {
 
     def "Should get email history when user has changed password before"() {
         given:
-        def userData = completeUserData()
+        def userData = userDataWithRandomFullName()
         userData.username = 'username1'
         endpoint.saveUser(userData)
 
