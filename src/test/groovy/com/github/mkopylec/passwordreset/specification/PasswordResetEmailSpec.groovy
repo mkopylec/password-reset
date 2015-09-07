@@ -30,9 +30,9 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 200
-        getMailSubject(userData.email).contains(userData.firstName)
-        getMailSubject(userData.email).contains(userData.lastName)
-        getMailContent(userData.email).contains(resetData.resetUrl)
+        getMailSubject(userData).contains(userData.firstName)
+        getMailSubject(userData).contains(userData.lastName)
+        getMailContent(userData).contains(resetData.resetUrl)
 
         where:
         resetMethod << [FULL, SIMPLE]
@@ -51,8 +51,8 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 400
-        getMailSubject(userData.email) == null
-        getMailContent(userData.email) == null
+        getMailSubject(userData) == null
+        getMailContent(userData) == null
 
         where:
         resetMethod << [null, NOT_AVAILABLE]
@@ -70,8 +70,8 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 400
-        getMailSubject(userData.email) == null
-        getMailContent(userData.email) == null
+        getMailSubject(userData) == null
+        getMailContent(userData) == null
     }
 
     @Unroll
@@ -87,8 +87,8 @@ class PasswordResetEmailSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 400
-        getMailSubject(userData.email) == null
-        getMailContent(userData.email) == null
+        getMailSubject(userData) == null
+        getMailContent(userData) == null
 
         where:
         resetUrl << [null, '', '  ']
