@@ -18,7 +18,7 @@ import java.lang.reflect.ParameterizedType
 @WebIntegrationTest
 @ActiveProfiles("test")
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = PasswordResetApp)
-class BasicSpec<E> extends Specification {
+abstract class BasicSpec<E> extends Specification {
 
     @Shared
     private Class<E> endpointClass
