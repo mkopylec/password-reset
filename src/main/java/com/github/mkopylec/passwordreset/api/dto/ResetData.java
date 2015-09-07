@@ -1,12 +1,14 @@
 package com.github.mkopylec.passwordreset.api.dto;
 
 import com.github.mkopylec.passwordreset.api.validation.AllowedResetMethod;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class ResetData {
 
     @AllowedResetMethod(message = "Not allowed password reset method")
     private ResetMethod resetMethod;
     private String maidenName;
+    @NotBlank(message = "Empty password reset URL")
     private String resetUrl;
 
     public ResetMethod getResetMethod() {

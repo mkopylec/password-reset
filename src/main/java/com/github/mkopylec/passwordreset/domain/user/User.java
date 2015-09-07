@@ -1,5 +1,6 @@
 package com.github.mkopylec.passwordreset.domain.user;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -34,6 +35,10 @@ public class User {
 
     public boolean isFullyNamedAndHasMaidenName() {
         return isFullyNamed() && isNotBlank(maidenName);
+    }
+
+    public boolean hasMaidenName(String maidenName) {
+        return StringUtils.equals(this.maidenName, maidenName);
     }
 
     public void changeUsername(String username) {
