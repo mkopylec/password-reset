@@ -6,7 +6,7 @@ import groovy.transform.PackageScope
 @PackageScope
 class UserAssert {
 
-    private final User actual
+    private User actual
 
     protected UserAssert(User actual) {
         assert actual != null
