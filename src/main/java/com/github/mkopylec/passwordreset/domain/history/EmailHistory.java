@@ -3,6 +3,7 @@ package com.github.mkopylec.passwordreset.domain.history;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
@@ -25,5 +26,10 @@ public class EmailHistory {
 
     public List<HistoryEntry> getEntries() {
         return unmodifiableList(entries);
+    }
+
+    public void addEntry(String username, String email) {
+        HistoryEntry entry = new HistoryEntry(username, email, new Date());
+        entries.add(entry);
     }
 }

@@ -1,6 +1,6 @@
 package com.github.mkopylec.passwordreset.domain.history;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -10,9 +10,9 @@ public class HistoryEntry {
 
     private final String username;
     private final String email;
-    private final LocalDateTime sendDate;
+    private final Date sendDate;
 
-    public HistoryEntry(String username, String email, LocalDateTime sendDate) {
+    HistoryEntry(String username, String email, Date sendDate) {
         checkArgument(hasUsernameOrEmail(username, email), "Username and e-mail address cannot be empty");
         checkNotNull(sendDate, "Send date cannot be empty");
         this.username = username;
@@ -28,7 +28,7 @@ public class HistoryEntry {
         return email;
     }
 
-    public LocalDateTime getSendDate() {
+    public Date getSendDate() {
         return sendDate;
     }
 

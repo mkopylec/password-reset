@@ -39,8 +39,8 @@ public class EmailService {
         badRequestIfFalse(user.hasMaidenName(maidenName), "User with id: '" + id + "' has maiden name not equal to: " + maidenName);
 
         emailSender.sendPasswordResetEmail(user, resetData.getResetUrl());
-        EmailHistory history = historyFactory.createHistory(id, user.getUsername(), user.getEmail());
-        historyRepository.save(history);
+
+        updateEmailHistory(user);
     }
 
     public List<ResetEmail> getEmailHistory(long id) {
@@ -57,5 +57,15 @@ public class EmailService {
                     return resetEmail;
                 })
                 .collect(toList());
+    }
+
+    private void updateEmailHistory(User user) {
+        EmailHistory history = historyRepository.findOne(user.getId());
+        if (history == null) {
+            history = historyFactory.createHistory(user.getId(), user.getUsername(), user.getEmail());
+        } else {
+            history.addEntry(user.getUsername(), user.getEmail());
+        }
+        historyRepository.save(history);
     }
 }
