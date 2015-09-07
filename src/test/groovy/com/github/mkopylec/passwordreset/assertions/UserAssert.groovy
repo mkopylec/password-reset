@@ -9,42 +9,42 @@ class UserAssert {
     private final User actual
 
     protected UserAssert(User actual) {
-        actual != null
+        assert actual != null
         this.actual = actual
     }
 
     UserAssert hasId(long id) {
-        actual.id == id
+        assert actual.id == id
         return this
     }
 
     UserAssert hasUsername(String username) {
-        actual.username == username
+        assert actual.username == username
         return this
     }
 
     UserAssert hasHashedPassword(String hashedPassword) {
-        actual.hashedPassword == hashedPassword
+        assert actual.hashedPassword == hashedPassword
         return this
     }
 
     UserAssert hasEmail(String email) {
-        actual.email == email
+        assert actual.email == email
         return this
     }
 
     UserAssert hasMaidenName(String maidenName) {
-        actual.maidenName == maidenName
+        assert actual.maidenName == maidenName
         return this
     }
 
     UserAssert hasFirstName(String firstName) {
-        actual.firstName == firstName
+        assert actual.firstName == firstName
         return this
     }
 
     UserAssert hasLastName(String lastName) {
-        actual.lastName == lastName
+        assert actual.lastName == lastName
         return this
     }
 }
