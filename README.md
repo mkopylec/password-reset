@@ -41,3 +41,72 @@ W temacie e-maila jest zawarte imię i nazwisko użytkownika.
 1. Przełączyć się na branch step-2-start
 2. Zaimplementować ostatni endpoint tak aby testy przechodziły.
 3. Porównać implementację z branchami step-2-endpoint-1.
+
+----
+
+# Architektura DDD
+Pomoc dydaktyczna.
+
+## Logika aplikacji
+#### Serwis aplikacyjny
+ - Metoda = przypadek użycia
+ - Operuje na modelu
+ - Bezstanowy
+ 
+#### Kontrakt z serwisem infrastrukturalnym
+ - Definiuje funkcjonalności pomocnicze
+ - Interfejs
+ 
+## Model
+#### Agregat
+ - Podstawowa jednostka operacyjna
+ - Powiązane encje i value objecty
+ - Jeden punkt wejściowy – korzeń
+ - Zawsze w prawidłowym stanie
+
+Encja:
+
+ - Unikalne ID
+ - Mutowalna
+ - Nieanemiczna
+ 
+Value Object:
+
+ - Brak unikalnego pola
+ - Niemutowalny
+ - Typ złożony
+
+#### Serwis domenowy
+ - Metoda = zachowanie logicznie nie pasujące do żadnej encji
+ - Bezstanowy
+
+#### Fabryka
+ - Tworzy agregaty
+ - Ogranicza sposoby tworzenia agregatu
+ - Wyciąga złożoną logikę z konstruktorów
+
+#### Repozytorium
+ - Zarządza utrwalaniem agregatów
+ - Interfejs
+
+#### Zdarzenie domenowe
+ - Oddziela model od innych warstw
+ - Konsumowane w innych warstwach
+
+#### Polityka
+ - Odzwierciedla wykonanie jednej operacji na kilka sposobów
+ - Wzorzec projektowy: Strategia
+
+#### Kontrakt z serwisem infrastrukturalnym
+ - Definiuje funkcjonalności pomocnicze
+ - Interfejs
+
+## Infrastruktura
+#### Serwis infrastrukturalny
+ - Spełnia kontrakt zdefiniowany w innych warstwach
+ - Bezstanowy
+
+#### Implementacja repozytorium
+ - Spełnia kontrakt zdefiniowany przez repozytorium
+ - Określa sposób utrwalania agregatów
+ - Bezstanowa
