@@ -13,9 +13,12 @@ Dodatkowo serwis ma udostępniać dla administratorów historię wysłanych do u
 ## Krok 1
 ### Odnowienie hasła:
 1. **_Użytkownik_** wchodzi na stronę gdzie podaje swój **_login_** lub **_email_**.  
-    a) Jeżeli użytkownik posiada **_nawisko panieńskie_** swojej matki, **_imię_** i **_nazwisko_** to przechodzi do strony gdzie podaje nazwisko panieńskie.  
-    b) Jeżeli użytkownik nie posiada nazwiska panieńskiego, ale ma imię i nazwisko, to przechodzi do pkt. 2.  
+    a) Jeżeli użytkownik posiada **_nawisko panieńskie_** swojej matki, **_imię_** i **_nazwisko_** to przechodzi do strony gdzie podaje nazwisko panieńskie.
+    *(Pełna metoda odnawiania hasła)*  
+    b) Jeżeli użytkownik nie posiada nazwiska panieńskiego, ale ma imię i nazwisko, to przechodzi do pkt. 2.
+    *(Uproszczona metoda odnawiania hasła)*  
     c) W przeciwnym wypadku użytkownik nie może odnowić swojego hasła. **Proces się kończy**.
+    *(Metoda odnawiania hasła niedostępna)*
 2. Do użytkownika zostaje wysłany e-mail z linkiem do ustalenia nowego hasła.
 Link przychodzi jako parametr z frontendu.
 W temacie e-maila jest zawarte imię i nazwisko użytkownika.
