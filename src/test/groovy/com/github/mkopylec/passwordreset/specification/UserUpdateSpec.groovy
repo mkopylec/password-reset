@@ -46,8 +46,16 @@ class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
 
         then:
         response.status == 200
-        //TODO Sprawdzic czy dane sie zgadzaja
-//        findInMongoDB(userData.id, entityClass) matches userData
+
+        def user = findInMongoDB(userData.id, User)
+        assertThat(user)
+                .hasId(userData.id)
+                .hasUsername(userData.username)
+                .hasHashedPassword(userData.hashedPassword)
+                .hasEmail(userData.email)
+                .hasMaidenName(userData.maidenName)
+                .hasFirstName(userData.firstName)
+                .hasLastName(userData.lastName)
     }
 
     @Unroll
