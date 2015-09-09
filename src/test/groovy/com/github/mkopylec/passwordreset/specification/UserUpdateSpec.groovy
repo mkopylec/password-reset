@@ -10,9 +10,36 @@ import static com.github.mkopylec.passwordreset.utils.DtoFactory.completeUserDat
 
 class UserUpdateSpec extends BasicSpec<PasswordResetEndpoint> {
 
-    def "Should save user"() {
+    def "Should create new user"() {
         given:
         def userData = completeUserData()
+
+        when:
+        def response = endpoint.saveUser(userData)
+
+        then:
+        response.status == 200
+
+        def user = findInMongoDB(userData.id, User)
+        assertThat(user)
+                .hasId(userData.id)
+                .hasUsername(userData.username)
+                .hasHashedPassword(userData.hashedPassword)
+                .hasEmail(userData.email)
+                .hasMaidenName(userData.maidenName)
+                .hasFirstName(userData.firstName)
+                .hasLastName(userData.lastName)
+    }
+
+    def "Should update existing user"() {
+        given:
+        def userData = completeUserData()
+
+        endpoint.saveUser(userData)
+
+        userData.username = 'new_username'
+        userData.email = 'new@email.com'
+        userData.maidenName = null
 
         when:
         def response = endpoint.saveUser(userData)
