@@ -29,12 +29,7 @@ public class UserService {
     }
 
     public void saveUser(UserData userData) {
-        User user = userRepository.findById(userData.getId());
-        if (user == null) {
-            user = createNewUser(userData);
-        } else {
-            updateUser(user, userData);
-        }
+        User user = createNewUser(userData);
         userRepository.save(user);
     }
 
@@ -65,13 +60,6 @@ public class UserService {
                 .withMaidenName(userData.getMaidenName())
                 .withFullName(userData.getFirstName(), userData.getLastName())
                 .create();
-    }
-
-    private void updateUser(User user, UserData userData) {
-        user.changeUsername(userData.getUsername());
-        user.changeEmail(userData.getEmail());
-        user.changeMaidenName(userData.getMaidenName());
-        user.rename(userData.getFirstName(), userData.getLastName());
     }
 
     private ResetMethod resolveResetMethod(User user) {
