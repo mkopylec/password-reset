@@ -41,22 +41,6 @@ public class User {
         return StringUtils.equals(this.maidenName, maidenName);
     }
 
-    public void changeUsername(String username) {
-        credentials = new Credentials(username, credentials.getHashedPassword());
-    }
-
-    public void changeEmail(String email) {
-        this.email = email;
-    }
-
-    public void changeMaidenName(String maidenName) {
-        this.maidenName = maidenName;
-    }
-
-    public void rename(String firstName, String lastName) {
-        fullName = new FullName(firstName, lastName);
-    }
-
     public long getId() {
         return id;
     }
