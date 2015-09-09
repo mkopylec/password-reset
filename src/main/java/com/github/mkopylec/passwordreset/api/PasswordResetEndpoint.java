@@ -17,10 +17,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("users")
 @Produces(APPLICATION_JSON)
+@Consumes(APPLICATION_JSON)
 public interface PasswordResetEndpoint {
 
     @PUT
-    @Consumes(APPLICATION_JSON)
     Response saveUser(UserData userData);
 
     @GET
