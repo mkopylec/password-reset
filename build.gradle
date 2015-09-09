@@ -8,6 +8,7 @@ buildscript {
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'groovy'
 
 group 'com.github.mkopylec.passwordreset'
 version '1.0'
