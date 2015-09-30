@@ -5,8 +5,6 @@ import com.github.mkopylec.passwordreset.api.dto.Password;
 import com.github.mkopylec.passwordreset.api.dto.ResetData;
 import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
-import com.github.mkopylec.passwordreset.application.email.EmailService;
-import com.github.mkopylec.passwordreset.application.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

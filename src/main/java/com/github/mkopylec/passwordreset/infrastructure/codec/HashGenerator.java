@@ -1,6 +1,6 @@
 package com.github.mkopylec.passwordreset.infrastructure.codec;
 
-import com.github.mkopylec.passwordreset.application.user.PasswordHasher;
+import com.github.mkopylec.passwordreset.domain.user.PasswordHasher;
 import org.springframework.stereotype.Service;
 
 import static org.apache.commons.codec.digest.DigestUtils.md5Hex;

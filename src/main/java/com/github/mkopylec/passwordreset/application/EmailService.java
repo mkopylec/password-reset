@@ -1,4 +1,4 @@
-package com.github.mkopylec.passwordreset.application.email;
+package com.github.mkopylec.passwordreset.application;
 
 import com.github.mkopylec.passwordreset.api.dto.ResetData;
 import com.github.mkopylec.passwordreset.domain.notification.EmailSender;
@@ -13,7 +13,7 @@ import static com.github.mkopylec.passwordreset.application.check.Preconditions.
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.notFoundIfNull;
 
 @Service
-public class EmailService {
+class EmailService {
 
     private final UserRepository userRepository;
     private final PasswordResetEmailCreator emailCreator;
