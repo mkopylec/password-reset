@@ -19,11 +19,11 @@ Dodatkowo serwis ma udostępniać dla administratorów historię wysłanych do u
     *(Uproszczona metoda odnawiania hasła)*  
     c) W przeciwnym wypadku użytkownik nie może odnowić swojego hasła. **Proces się kończy**.
     *(Metoda odnawiania hasła niedostępna)*
-2. Do użytkownika zostaje wysłany e-mail z linkiem do ustalenia nowego hasła.
+2. Do użytkownika zostaje **_wysłany e-mail_** z linkiem do ustalenia nowego hasła.
 Link przychodzi jako parametr z frontendu.
 W temacie e-maila jest zawarte imię i nazwisko użytkownika.
 3. Po kliknięciu na link użytkownik podaje nowe hasło.
-4. Hasło dla użytkownika zostaje zmienione. **Proces się kończy**.
+4. Hasło użytkownika zostaje **_zaszyfrowane_** i zmienione. **Proces się kończy**.
 
 ### Pozyskiwanie danych o użytkownikach
 1. Przychodzi wiadomość z kolejki z danymi użytkowników.

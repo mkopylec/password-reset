@@ -1,8 +1,9 @@
-package com.github.mkopylec.passwordreset.application.user;
+package com.github.mkopylec.passwordreset.application;
 
 import com.github.mkopylec.passwordreset.api.dto.Password;
 import com.github.mkopylec.passwordreset.api.dto.ResetMethod;
 import com.github.mkopylec.passwordreset.api.dto.UserData;
+import com.github.mkopylec.passwordreset.domain.user.PasswordHasher;
 import com.github.mkopylec.passwordreset.domain.user.User;
 import com.github.mkopylec.passwordreset.domain.user.UserFactory;
 import com.github.mkopylec.passwordreset.domain.user.UserRepository;
@@ -15,7 +16,7 @@ import static com.github.mkopylec.passwordreset.api.dto.ResetMethod.SIMPLE;
 import static com.github.mkopylec.passwordreset.application.check.Preconditions.notFoundIfNull;
 
 @Service
-public class UserService {
+class UserService {
 
     private final UserFactory userFactory;
     private final UserRepository userRepository;

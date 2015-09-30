@@ -1,10 +1,13 @@
-package com.github.mkopylec.passwordreset.application.email;
+package com.github.mkopylec.passwordreset.application;
 
 import com.github.mkopylec.passwordreset.api.dto.ResetData;
 import com.github.mkopylec.passwordreset.api.dto.ResetEmail;
 import com.github.mkopylec.passwordreset.domain.history.EmailHistory;
 import com.github.mkopylec.passwordreset.domain.history.EmailHistoryFactory;
 import com.github.mkopylec.passwordreset.domain.history.EmailHistoryRepository;
+import com.github.mkopylec.passwordreset.domain.notification.EmailSender;
+import com.github.mkopylec.passwordreset.domain.notification.PasswordResetEmail;
+import com.github.mkopylec.passwordreset.domain.notification.PasswordResetEmailCreator;
 import com.github.mkopylec.passwordreset.domain.user.User;
 import com.github.mkopylec.passwordreset.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +20,23 @@ import static com.github.mkopylec.passwordreset.application.check.Preconditions.
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class EmailService {
+class EmailService {
 
     private final UserRepository userRepository;
+    private final PasswordResetEmailCreator emailCreator;
     private final EmailSender emailSender;
     private final EmailHistoryFactory historyFactory;
     private final EmailHistoryRepository historyRepository;
 
     @Autowired
-    public EmailService(UserRepository userRepository, EmailSender emailSender, EmailHistoryFactory historyFactory, EmailHistoryRepository historyRepository) {
+    public EmailService(UserRepository userRepository,
+                        PasswordResetEmailCreator emailCreator,
+                        EmailSender emailSender,
+                        EmailHistoryFactory historyFactory,
+                        EmailHistoryRepository historyRepository
+    ) {
         this.userRepository = userRepository;
+        this.emailCreator = emailCreator;
         this.emailSender = emailSender;
         this.historyFactory = historyFactory;
         this.historyRepository = historyRepository;
@@ -38,7 +48,8 @@ public class EmailService {
         String maidenName = resetData.getMaidenName();
         badRequestIfFalse(user.hasMaidenName(maidenName), "User with id: '" + id + "' has maiden name not equal to: " + maidenName);
 
-        emailSender.sendPasswordResetEmail(user, resetData.getResetUrl());
+        PasswordResetEmail resetEmail = emailCreator.createPasswordResetEmail(user, resetData.getResetUrl());
+        emailSender.sendPasswordResetEmail(resetEmail);
 
         updateEmailHistory(user);
     }

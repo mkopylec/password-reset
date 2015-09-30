@@ -19,8 +19,8 @@ public class User {
     private FullName fullName;
 
     User(long id, Credentials credentials, String email, String maidenName, FullName fullName) {
-        checkNotNull(credentials != null, "Credentials cannot be empty");
-        checkNotNull(fullName != null, "Full name cannot be empty");
+        checkNotNull(credentials, "Credentials cannot be empty");
+        checkNotNull(fullName, "Full name cannot be empty");
         checkArgument(hasUsernameOrEmail(credentials.getUsername(), email), "Username and e-mail address cannot be empty");
         this.id = id;
         this.credentials = credentials;
