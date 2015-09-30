@@ -1,4 +1,4 @@
-package com.github.mkopylec.passwordreset.application.user;
+package com.github.mkopylec.passwordreset.domain.user;
 
 public interface PasswordHasher {
 
