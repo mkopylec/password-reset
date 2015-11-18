@@ -27,9 +27,4 @@ class UserStorage implements UserRepository {
         userLoginDao.save(documentFactory.createUserLoginDocument(user));
         userEmailDao.save(documentFactory.createUserEmailDocument(user));
     }
-
-    @Override
-    public User findById(long id) {
-        return userDao.findOne(id);
-    }
 }
